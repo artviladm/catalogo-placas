@@ -1,0 +1,56 @@
+# Robô que publica o catálogo.
+# Toda vez que você der "Push", ele monta a lista de placas (catalogo.json)
+# e publica o site. Assim o catálogo não depende do limite de 60 acessos por hora.
+name: Publicar catálogo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Baixar os arquivos
+        uses: actions/checkout@v6
+
+      - name: Montar a lista de placas
+        run: |
+          python3 - <<'PY'
+          import os, json, time
+          arquivos = []
+          for raiz, pastas, nomes in os.walk("clientes"):
+              pastas[:] = sorted(p for p in pastas if not p.startswith("."))
+              for nome in sorted(nomes):
+                  if nome.startswith("."):
+                      continue
+                  arquivos.append(os.path.join(raiz, nome).replace(os.sep, "/"))
+          with open("catalogo.json", "w", encoding="utf-8") as f:
+              json.dump({"gerado_em": int(time.time()), "arquivos": arquivos}, f, ensure_ascii=False)
+          print(f"Lista criada com {len(arquivos)} arquivos.")
+          PY
+
+      - name: Preparar o GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empacotar o site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: .
+
+      - name: Publicar
+        id: deployment
+        uses: actions/deploy-pages@v4
