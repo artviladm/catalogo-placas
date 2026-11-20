@@ -1,0 +1,12 @@
+# Tamanhos das placas deste cliente (largura x altura, em cm)
+# Formato: CODIGO ou PASTA DA CATEGORIA ; tamanho ; tamanho ; personalizado
+# Placas que nao aparecem aqui continuam sem escolha de tamanho.
+#
+# Uma placa especifica:
+PSV-001;15x20;20x30;30x45;personalizado
+#
+# Todas as placas de uma categoria (use o nome da pasta):
+Combate a Incêndio;20x20;30x30;personalizado
+#
+# So tamanho personalizado:
+PCI-010;personalizado

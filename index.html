@@ -1173,6 +1173,103 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     @keyframes spin { to { transform: rotate(360deg); } }
 
     @media print { .cat-header { position: static; } }
+
+    /* ===== v3: grade compacta ===== */
+    .cards-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.5rem; }
+    @media (max-width: 640px) { .cards-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 0.4rem; } }
+    .thumb-img { padding: 0.3rem; }
+    .plate-details { padding: 0.45rem; gap: 0.3rem; }
+    .plate-code { font-size: 0.78rem; }
+    .plate-category-badge { display: none; }
+    .qty-stepper { padding-top: 0; }
+    .plate-card .step-btn { width: 1.6rem; height: 1.6rem; }
+    .plate-card .qty-input { font-size: 0.8rem; }
+    .selected-indicator { top: 0.3rem; right: 0.3rem; font-size: 0.65rem; padding: 0.1rem 0.35rem; }
+    .size-tag { font-size: 0.62rem; font-weight: 600; color: var(--cat, var(--text-muted)); text-transform: uppercase; letter-spacing: 0.03em; }
+    .btn-choose-size {
+      width: 100%; border: 1px dashed var(--cat, var(--border)); background: #fff; color: var(--cat, var(--text));
+      border-radius: var(--radius); font-size: 0.72rem; font-weight: 600; padding: 0.35rem 0.25rem; cursor: pointer;
+    }
+    .btn-choose-size:hover { background: var(--accent-subtle); }
+
+    /* ===== v3: escolha de tamanho no modal ===== */
+    .modal-box { max-width: 640px; }
+    .modal-body { padding: 1rem; min-height: 200px; }
+    .modal-img { max-height: 42vh; }
+    .modal-footer { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .size-picker { display: flex; flex-direction: column; gap: 0.5rem; }
+    .size-picker-title { font-size: 0.82rem; font-weight: 700; }
+    .size-picker-title small { font-weight: 500; color: var(--text-muted); }
+    .size-options { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .size-opt {
+      border: 1px solid var(--border); background: #fff; border-radius: 9999px; padding: 0.35rem 0.75rem;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer; color: var(--text); display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    .size-opt:hover { border-color: var(--accent); }
+    .size-opt.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .size-opt .size-opt-qty { background: rgba(0,0,0,0.08); border-radius: 9999px; padding: 0 0.35rem; font-size: 0.7rem; }
+    .size-opt.active .size-opt-qty { background: rgba(255,255,255,0.25); }
+    .custom-size { display: none; align-items: flex-end; gap: 0.5rem; flex-wrap: wrap; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.6rem; }
+    .custom-size.open { display: flex; }
+    .custom-size label { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); }
+    .custom-size input { width: 6.5rem; padding: 0.4rem 0.5rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; font-family: var(--font-mono); }
+    .custom-size .times { padding-bottom: 0.45rem; font-weight: 700; color: var(--text-muted); }
+    .custom-size .lock-note { font-size: 0.7rem; color: var(--text-muted); flex-basis: 100%; }
+    .modal-qty-row { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+    .modal-qty-row.locked .qty-stepper { opacity: 0.4; pointer-events: none; }
+    .modal-qty-hint { font-size: 0.78rem; color: var(--text-muted); }
+    .modal-qty-row.locked .modal-qty-hint { color: #b45309; font-weight: 600; }
+    .modal-variants { font-size: 0.75rem; color: var(--text-muted); }
+    .modal-variants:empty { display: none; }
+
+    /* ===== v3: carrinhos salvos ===== */
+    .cart-bar { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.4rem; background: var(--bg); }
+    .cart-bar-row { display: flex; gap: 0.35rem; align-items: center; }
+    .cart-bar select { flex: 1; min-width: 0; padding: 0.4rem 0.5rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; font-weight: 600; background: #fff; }
+    .icon-btn { border: 1px solid var(--border); background: #fff; border-radius: 6px; padding: 0.35rem 0.5rem; font-size: 0.75rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 0.25rem; color: var(--text); white-space: nowrap; }
+    .icon-btn:hover { border-color: var(--accent); color: var(--accent-text); }
+    .icon-btn.danger:hover { border-color: #fca5a5; color: #dc2626; background: #fee2e2; }
+    .cart-bar-hint { font-size: 0.68rem; color: var(--text-muted); }
+    .order-item-size { font-size: 0.7rem; font-weight: 700; color: var(--text); }
+
+    /* ===== v3: dados do cliente + WhatsApp ===== */
+    .customer-status { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.78rem; padding: 0.5rem 0.6rem; border-radius: var(--radius); border: 1px solid #fcd34d; background: #fffbeb; color: #92400e; }
+    .customer-status.ok { border-color: #86efac; background: #f0fdf4; color: #166534; }
+    .customer-status button { border: 0; background: none; color: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; font-size: 0.78rem; padding: 0; }
+    .btn-whatsapp {
+      background: #16a34a; color: #fff; border: 1px solid #16a34a; padding: 0.7rem 1rem; border-radius: var(--radius);
+      font-weight: 700; font-size: 0.92rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer;
+    }
+    .btn-whatsapp:hover { background: #15803d; }
+    .btn-whatsapp.is-locked { background: #cbd5e1; border-color: #cbd5e1; color: #475569; }
+    .btn-whatsapp.is-locked:hover { background: #cbd5e1; }
+
+    .form-box { max-width: 560px; }
+    .form-body { padding: 1rem 1.25rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.9rem; background: #fff; }
+    .form-section-title { font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent-text); margin: 0.25rem 0 -0.25rem; }
+    .form-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.55rem; }
+    .form-grid .f { display: flex; flex-direction: column; gap: 0.2rem; grid-column: span 6; }
+    .form-grid .s2 { grid-column: span 2; } .form-grid .s3 { grid-column: span 3; } .form-grid .s4 { grid-column: span 4; }
+    @media (max-width: 520px) { .form-grid .s2, .form-grid .s3, .form-grid .s4 { grid-column: span 3; } }
+    .f label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); }
+    .f label .req { color: #dc2626; }
+    .f input, .f select, .f textarea { padding: 0.5rem 0.6rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; background: #fff; font-family: inherit; }
+    .f input:focus, .f select:focus, .f textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+    .f.invalid input, .f.invalid select { border-color: #dc2626; background: #fef2f2; }
+    .f .err { font-size: 0.7rem; color: #dc2626; display: none; }
+    .f.invalid .err { display: block; }
+    .check-line { display: flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+    .form-actions { padding: 0.85rem 1.25rem; border-top: 1px solid var(--border); display: flex; gap: 0.5rem; justify-content: flex-end; background: #fff; }
+    .form-actions .btn-whatsapp { padding: 0.55rem 1rem; }
+    .form-alert { font-size: 0.8rem; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 0.55rem 0.7rem; border-radius: var(--radius); display: none; }
+    .form-alert.show { display: block; }
+
+    .name-box { max-width: 380px; }
+    .toast-box { bottom: auto; top: 1rem; transform: translateX(-50%) translateY(-120px); z-index: 300; }
+    .toast-box.show { transform: translateX(-50%) translateY(0); }
+    .btn-choose-size { font-size: 0.66rem; line-height: 1.2; }
+    @media (max-width: 640px) { .modal-img { max-height: 30vh; } .modal-body { min-height: 0; padding: 0.6rem; } .modal-backdrop { padding: 0.75rem; } }
+    .name-box .form-body { gap: 0.5rem; }
   </style>
 <body>
 
@@ -1279,7 +1376,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
             <path d="M3 6h18"></path>
             <path d="M16 10a4 4 0 0 1-8 0"></path>
           </svg>
-          <span>Pedido de Produção</span>
+          <span>Meu Pedido</span>
           <span class="badge-count" id="orderBadgeCount">0</span>
         </div>
         <button type="button" class="modal-close-btn" id="btnCloseMobileCart" aria-label="Fechar painel do pedido" style="display: none;">
@@ -1290,21 +1387,35 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
         </button>
       </div>
 
+      <!-- Carrinhos salvos -->
+      <div class="cart-bar">
+        <div class="cart-bar-row">
+          <select id="cartSelect" aria-label="Carrinho atual"></select>
+          <button type="button" class="icon-btn" id="btnNewCart" title="Criar um novo carrinho">＋ Novo</button>
+        </div>
+        <div class="cart-bar-row">
+          <button type="button" class="icon-btn" id="btnRenameCart" title="Renomear este carrinho">✎ Renomear</button>
+          <button type="button" class="icon-btn" id="btnDuplicateCart" title="Criar uma cópia deste carrinho">⧉ Duplicar</button>
+          <button type="button" class="icon-btn danger" id="btnDeleteCart" title="Excluir este carrinho">🗑 Excluir</button>
+        </div>
+        <div class="cart-bar-hint">Seus carrinhos ficam salvos automaticamente neste aparelho.</div>
+      </div>
+
       <!-- Items List -->
-      <div class="order-list" id="orderList"><div class="order-empty-state" id="orderEmptyState" style="display: block;">
+      <div class="order-list" id="orderList"><div class="order-empty-state" id="orderEmptyState">
           <svg class="order-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <circle cx="8" cy="21" r="1"></circle>
             <circle cx="19" cy="21" r="1"></circle>
             <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
           </svg>
-          <p>Nenhuma placa selecionada ainda.</p>
+          <p>Nenhuma placa neste carrinho.</p>
           <span style="font-size: 0.75rem;">Defina a quantidade de qualquer placa para adicioná-la aqui.</span>
         </div></div>
 
       <!-- Footer / Summary -->
       <div class="order-footer">
         <div class="order-summary-row">
-          <span style="color: var(--text-muted);">Modelos distintos:</span>
+          <span style="color: var(--text-muted);">Itens diferentes:</span>
           <strong id="summaryDistinct">0</strong>
         </div>
         <div class="order-summary-row">
@@ -1314,17 +1425,19 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
 
         <div class="order-cats-summary" id="categoryBreakdown" title="Distribuição por categoria">Nenhuma placa no pedido</div>
 
+        <div class="customer-status" id="customerStatus">
+          <span id="customerStatusText">⚠️ Dados para faturamento e entrega pendentes</span>
+          <button type="button" id="btnEditCustomer">Preencher</button>
+        </div>
+
         <div class="action-btn-group">
-          <button type="button" class="btn-macro" id="btnCopyMacro" title="Copiar para área de transferência no padrão CODIGO;QTD">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
-              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
-            </svg>
-            <span>Copiar lista (CorelDRAW)</span>
+          <button type="button" class="btn-whatsapp is-locked" id="btnSendWhatsapp" aria-disabled="true" title="Enviar este carrinho pelo WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.93-4.66-4.11-.13-.18-1.11-1.48-1.11-2.82 0-1.34.7-2 .95-2.27.24-.27.53-.34.71-.34h.51c.16 0 .38-.06.6.46.24.55.79 1.9.86 2.04.07.14.11.3.02.48-.09.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.56.16.27.71 1.17 1.52 1.9 1.05.93 1.93 1.22 2.2 1.36.27.14.43.11.59-.07.16-.18.68-.79.86-1.07.18-.27.36-.23.6-.14.25.09 1.57.74 1.84.88.27.14.45.2.52.32.07.11.07.66-.17 1.33z"/></svg>
+            <span>Enviar pedido no WhatsApp</span>
           </button>
 
           <div class="btn-secondary-row">
-            <button type="button" class="btn-outline" id="btnDownloadCsv" title="Baixar planilha CSV com CODIGO;QTD;CATEGORIA">
+            <button type="button" class="btn-outline" id="btnDownloadCsv" title="Baixar planilha CSV deste carrinho">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -1332,13 +1445,13 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
               </svg>
               <span>Baixar CSV</span>
             </button>
-            <button type="button" class="btn-outline text-danger" id="btnClearOrder" title="Zerar todas as quantidades">
+            <button type="button" class="btn-outline text-danger" id="btnClearOrder" title="Zerar todas as quantidades deste carrinho">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 6h18"></path>
                 <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
                 <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
               </svg>
-              <span>Limpar</span>
+              <span>Esvaziar</span>
             </button>
           </div>
         </div>
@@ -1346,7 +1459,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     </aside>
   </div>
 
-  <!-- Lightbox Modal -->
+  <!-- Lightbox Modal (ver placa + tamanho + quantidade) -->
   <div class="modal-backdrop" id="imageModal" role="dialog" aria-modal="true" aria-labelledby="modalCode">
     <div class="modal-box">
       <div class="modal-header">
@@ -1365,12 +1478,22 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
         <img src="" alt="" id="modalImg" class="modal-img">
       </div>
       <div class="modal-footer">
-        <div style="font-size:0.8rem; color:var(--text-muted);">
-          Use para conferir traçado e detalhes visuais da placa.
+        <div class="size-picker" id="sizePicker" style="display:none;">
+          <div class="size-picker-title">1. Escolha o tamanho <small>(largura × altura)</small></div>
+          <div class="size-options" id="sizeOptions"></div>
+          <div class="custom-size" id="customSize">
+            <label>Largura (cm)<input type="text" inputmode="decimal" id="customW" autocomplete="off"></label>
+            <span class="times">×</span>
+            <label>Altura (cm)<input type="text" inputmode="decimal" id="customH" autocomplete="off"></label>
+            <span class="lock-note">🔗 Proporção travada: ao mudar uma medida, a outra se ajusta sozinha.</span>
+          </div>
         </div>
-        <div style="display:flex; align-items:center; gap:0.5rem;">
-          <span style="font-size:0.85rem; font-weight:600;">Quantidade:</span>
-          <div class="qty-stepper" style="width: 110px; margin: 0;">
+        <div class="modal-qty-row" id="modalQtyRow">
+          <div>
+            <div class="modal-qty-hint" id="modalQtyHint">Quantidade:</div>
+            <div class="modal-variants" id="modalVariants"></div>
+          </div>
+          <div class="qty-stepper" style="width: 130px; margin: 0;">
             <button type="button" class="step-btn" id="modalQtyMinus" aria-label="Diminuir">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             </button>
@@ -1384,47 +1507,120 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     </div>
   </div>
 
+  <!-- Dados do cliente -->
+  <div class="modal-backdrop" id="customerModal" role="dialog" aria-modal="true" aria-labelledby="customerModalTitle">
+    <div class="modal-box form-box">
+      <div class="modal-header">
+        <strong id="customerModalTitle">Dados para faturamento e entrega</strong>
+        <button type="button" class="modal-close-btn" data-close="customerModal" aria-label="Fechar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <form class="form-body" id="customerForm" novalidate>
+        <div class="form-alert" id="customerAlert">Para enviar o pedido é obrigatório preencher todos os campos marcados com <strong>*</strong>.</div>
+
+        <div class="form-section-title">Identificação</div>
+        <div class="form-grid">
+          <div class="f s4"><label for="cfName">Nome / Razão social <span class="req">*</span></label><input id="cfName" autocomplete="organization"><span class="err">Informe o nome ou a razão social.</span></div>
+          <div class="f s2"><label for="cfDoc">CPF ou CNPJ <span class="req">*</span></label><input id="cfDoc" inputmode="text" autocomplete="off" placeholder="000.000.000-00"><span class="err">CPF/CNPJ inválido.</span></div>
+        </div>
+
+        <div class="form-section-title">Endereço de faturamento</div>
+        <div class="form-grid" data-addr="bill">
+          <div class="f s2"><label>CEP <span class="req">*</span></label><input data-k="cep" inputmode="numeric" placeholder="00000-000"><span class="err">CEP inválido.</span></div>
+          <div class="f s4"><label>Rua / Avenida <span class="req">*</span></label><input data-k="rua"><span class="err">Obrigatório.</span></div>
+          <div class="f s2"><label>Número <span class="req">*</span></label><input data-k="numero"><span class="err">Obrigatório.</span></div>
+          <div class="f s4"><label>Complemento</label><input data-k="complemento" placeholder="Sala, bloco, galpão... (opcional)"></div>
+          <div class="f s3"><label>Bairro <span class="req">*</span></label><input data-k="bairro"><span class="err">Obrigatório.</span></div>
+          <div class="f s2"><label>Cidade <span class="req">*</span></label><input data-k="cidade"><span class="err">Obrigatório.</span></div>
+          <div class="f s2" style="grid-column: span 1;"><label>UF <span class="req">*</span></label><input data-k="uf" maxlength="2" style="text-transform:uppercase;"><span class="err">UF?</span></div>
+        </div>
+
+        <div class="form-section-title">Endereço de entrega</div>
+        <label class="check-line"><input type="checkbox" id="cfSameAddr"> Entregar no mesmo endereço do faturamento</label>
+        <div class="form-grid" data-addr="ship" id="shipGrid">
+          <div class="f s2"><label>CEP <span class="req">*</span></label><input data-k="cep" inputmode="numeric" placeholder="00000-000"><span class="err">CEP inválido.</span></div>
+          <div class="f s4"><label>Rua / Avenida <span class="req">*</span></label><input data-k="rua"><span class="err">Obrigatório.</span></div>
+          <div class="f s2"><label>Número <span class="req">*</span></label><input data-k="numero"><span class="err">Obrigatório.</span></div>
+          <div class="f s4"><label>Complemento</label><input data-k="complemento" placeholder="Sala, bloco, galpão... (opcional)"></div>
+          <div class="f s3"><label>Bairro <span class="req">*</span></label><input data-k="bairro"><span class="err">Obrigatório.</span></div>
+          <div class="f s2"><label>Cidade <span class="req">*</span></label><input data-k="cidade"><span class="err">Obrigatório.</span></div>
+          <div class="f s2" style="grid-column: span 1;"><label>UF <span class="req">*</span></label><input data-k="uf" maxlength="2" style="text-transform:uppercase;"><span class="err">UF?</span></div>
+        </div>
+
+        <div class="form-section-title">Observações</div>
+        <div class="form-grid">
+          <div class="f"><label for="cfNotes">Observações para o vendedor (opcional)</label><textarea id="cfNotes" rows="2" placeholder="Prazo, forma de pagamento, contato de quem vai receber..."></textarea></div>
+        </div>
+      </form>
+      <div class="form-actions">
+        <button type="button" class="btn-outline" style="flex:0 0 auto;" data-close="customerModal">Cancelar</button>
+        <button type="button" class="btn-outline" style="flex:0 0 auto; font-weight:700;" id="btnSaveCustomer">Salvar dados</button>
+        <button type="button" class="btn-whatsapp" id="btnSaveAndSend">Salvar e enviar no WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nome do carrinho -->
+  <div class="modal-backdrop" id="nameModal" role="dialog" aria-modal="true" aria-labelledby="nameModalTitle">
+    <div class="modal-box name-box">
+      <div class="modal-header">
+        <strong id="nameModalTitle">Nome do carrinho</strong>
+        <button type="button" class="modal-close-btn" data-close="nameModal" aria-label="Fechar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <form class="form-body" id="nameForm" novalidate>
+        <div class="f"><label for="nameInput">Dê um nome para identificar este carrinho</label><input id="nameInput" maxlength="60" placeholder="Ex.: Orçamento A — navio Atlântico"><span class="err">Digite um nome.</span></div>
+      </form>
+      <div class="form-actions">
+        <button type="button" class="btn-outline" style="flex:0 0 auto;" data-close="nameModal">Cancelar</button>
+        <button type="button" class="btn-macro" id="btnNameOk" style="padding:0.5rem 1rem;">Salvar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
   <div class="toast-box" id="toastBox" role="status" aria-live="polite">
     <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
       <polyline points="20 6 9 17 4 12"></polyline>
     </svg>
-    <span id="toastMsg">Lista copiada! Cole no CorelDRAW e rode a macro.</span>
+    <span id="toastMsg">Pronto!</span>
   </div>
 
   <script>
     /* =====================================================================
        CATÁLOGO DE PLACAS — VERSÃO ONLINE (GitHub Pages), UMA PASTA POR CLIENTE
        ---------------------------------------------------------------------
-       Estrutura esperada no repositório:
+       Estrutura no repositório:
          index.html
          clientes/
            nome-do-cliente/
-             01 - Salvamento/        <- cada subpasta vira uma categoria
-               E001.jpg               <- nome do arquivo = código da placa
-             02 - Combate a Incendio/
-               F001.jpg
+             tamanhos.csv              <- (opcional) quais placas têm tamanhos
+             01 - Salvamento/          <- cada subpasta vira uma categoria
+               PSV-001.jpg             <- nome do arquivo = código da placa
        Link do cliente:  https://SEU-USUARIO.github.io/SEU-REPOSITORIO/?cliente=nome-do-cliente
        ===================================================================== */
     const CONFIG = {
-      // Preenchidos automaticamente quando a página está no GitHub Pages.
-      // Só altere se usar um domínio próprio.
+      // WhatsApp que recebe os pedidos: 55 + DDD + número, só dígitos
+      whatsapp: "5547997191254",
+      // Preenchidos automaticamente no GitHub Pages. Só altere se usar domínio próprio.
       owner: "",
       repo: "",
       branch: "main",
       pastaClientes: "clientes",
-      // Por quanto tempo a lista de arquivos fica guardada no navegador (minutos)
+      arquivoTamanhos: "tamanhos.csv",
       cacheMinutos: 10
     };
 
     const IMAGE_EXT_PRIORITY = { jpg: 4, jpeg: 3, png: 2, webp: 1 };
     const LAST_CLIENT_KEY = "catalogo_placas_ultimo_cliente";
+    const UFS = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"];
 
-    // Cores das categorias: primeiro por palavra-chave, depois por uma paleta fixa
     const CATEGORY_COLOR_RULES = [
-      [/salvament|emerg|rota|fuga|saida|socorr|abandono/i, "#15803d"],
       [/controle/i, "#c2410c"],
       [/inc[eê]ndio|combate|extintor|hidrante|fogo/i, "#dc2626"],
+      [/salvament|emerg|rota|fuga|saida|socorr|abandono/i, "#15803d"],
       [/proib/i, "#b91c1c"],
       [/alerta|perigo|cuidado|aten[cç]/i, "#b45309"],
       [/obrigat|epi|seguran/i, "#1d4ed8"],
@@ -1433,69 +1629,47 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     ];
     const CATEGORY_PALETTE = ["#4f46e5", "#0f766e", "#a21caf", "#9a3412", "#0369a1", "#4d7c0f", "#be185d", "#6d28d9"];
 
-    // Application state
     const state = {
       client: "",
-      items: new Map(),      // code -> { code, category, catKey, color, url }
-      categories: [],        // [{ key, name, color, codes: [] }]
-      order: new Map(),      // code -> quantity
+      items: new Map(),       // code -> { code, category, catKey, color, url, sizes: null | {fixed:[...], custom:bool} }
+      categories: [],
+      codeIndex: new Map(),   // code -> posição no catálogo (para ordenar o pedido)
+      carts: null,            // { activeId, list: [{id, name, items:{lineKey:qty}, updated}] }
+      order: new Map(),       // itens do carrinho ativo: lineKey -> qty
+      customer: null,
       searchQuery: "",
       onlySelected: false,
-      activeModalCode: null,
-      observer: null,
-      storageKey: "catalogo_placas_order_v2"
+      modal: { code: null, sizeId: null, ratio: 1 },
+      nameDialog: null,
+      observer: null
     };
 
-    // DOM References
     const $ = (id) => document.getElementById(id);
-    const appHeader = $("appHeader");
-    const btnHome = $("btnHome");
-    const clientTitle = $("clientTitle");
-    const toolbarBox = $("toolbarBox");
-    const stateBox = $("stateBox");
-    const stateSpinner = $("stateSpinner");
-    const stateTitle = $("stateTitle");
-    const stateText = $("stateText");
-    const catalogSections = $("catalogSections");
-    const noResults = $("noResults");
-    const categoryChips = $("categoryChips");
-    const searchInput = $("searchInput");
-    const onlySelectedCheck = $("onlySelectedCheck");
-
-    const orderList = $("orderList");
-    const orderEmptyState = $("orderEmptyState");
-    const orderBadgeCount = $("orderBadgeCount");
-    const mobileCartCount = $("mobileCartCount");
-    const summaryDistinct = $("summaryDistinct");
-    const summaryTotal = $("summaryTotal");
+    const appHeader = $("appHeader"), btnHome = $("btnHome"), clientTitle = $("clientTitle");
+    const toolbarBox = $("toolbarBox"), stateBox = $("stateBox"), stateSpinner = $("stateSpinner");
+    const stateTitle = $("stateTitle"), stateText = $("stateText");
+    const catalogSections = $("catalogSections"), noResults = $("noResults"), categoryChips = $("categoryChips");
+    const searchInput = $("searchInput"), onlySelectedCheck = $("onlySelectedCheck");
+    const orderList = $("orderList"), orderEmptyState = $("orderEmptyState"), orderBadgeCount = $("orderBadgeCount");
+    const mobileCartCount = $("mobileCartCount"), summaryDistinct = $("summaryDistinct"), summaryTotal = $("summaryTotal");
     const categoryBreakdown = $("categoryBreakdown");
-    const btnCopyMacro = $("btnCopyMacro");
-    const btnDownloadCsv = $("btnDownloadCsv");
-    const btnClearOrder = $("btnClearOrder");
-
-    const orderPanel = $("orderPanel");
-    const btnToggleMobileCart = $("btnToggleMobileCart");
-    const btnCloseMobileCart = $("btnCloseMobileCart");
-    const orderBackdrop = $("orderBackdrop");
-
-    const imageModal = $("imageModal");
-    const modalCloseBtn = $("modalCloseBtn");
-    const modalCode = $("modalCode");
-    const modalCat = $("modalCat");
-    const modalImg = $("modalImg");
-    const modalQtyInput = $("modalQtyInput");
-    const modalQtyMinus = $("modalQtyMinus");
-    const modalQtyPlus = $("modalQtyPlus");
-
-    const toastBox = $("toastBox");
-    const toastMsg = $("toastMsg");
+    const btnSendWhatsapp = $("btnSendWhatsapp"), btnDownloadCsv = $("btnDownloadCsv"), btnClearOrder = $("btnClearOrder");
+    const cartSelect = $("cartSelect");
+    const customerStatus = $("customerStatus"), customerStatusText = $("customerStatusText");
+    const orderPanel = $("orderPanel"), btnToggleMobileCart = $("btnToggleMobileCart");
+    const btnCloseMobileCart = $("btnCloseMobileCart"), orderBackdrop = $("orderBackdrop");
+    const imageModal = $("imageModal"), modalCloseBtn = $("modalCloseBtn"), modalCode = $("modalCode");
+    const modalCat = $("modalCat"), modalImg = $("modalImg"), modalQtyInput = $("modalQtyInput");
+    const modalQtyRow = $("modalQtyRow"), modalQtyHint = $("modalQtyHint"), modalVariants = $("modalVariants");
+    const sizePicker = $("sizePicker"), sizeOptions = $("sizeOptions"), customSize = $("customSize");
+    const customW = $("customW"), customH = $("customH");
+    const customerModal = $("customerModal"), customerAlert = $("customerAlert"), nameModal = $("nameModal");
+    const toastBox = $("toastBox"), toastMsg = $("toastMsg");
     const restoredAlert = $("restoredAlert");
-    const btnDismissRestored = $("btnDismissRestored");
-    const catalogStat = $("catalogStat");
-    const filterStat = $("filterStat");
+    const catalogStat = $("catalogStat"), filterStat = $("filterStat");
 
     /* =====================================================================
-       INITIALIZATION
+       INICIALIZAÇÃO
        ===================================================================== */
     document.addEventListener("DOMContentLoaded", () => {
       updateHeaderHeight();
@@ -1515,7 +1689,6 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       if (host.endsWith(".github.io")) {
         const owner = host.replace(".github.io", "");
         const firstSeg = location.pathname.split("/").filter(Boolean)[0];
-        // Repositório "usuario.github.io" fica na raiz; os demais ficam em /nome-do-repo/
         const repo = firstSeg && !firstSeg.includes(".") ? firstSeg : host;
         return { owner, repo };
       }
@@ -1538,10 +1711,9 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     async function start() {
       let client = getClientFromUrl();
       if (!client) {
-        try { client = localStorage.getItem(LAST_CLIENT_KEY) || ""; } catch (e) {}
+        client = lsGet(LAST_CLIENT_KEY) || "";
         if (client) setUrlClient(client);
       }
-
       if (!client) {
         clientTitle.textContent = "Catálogo de Placas";
         showState("info", "Abra o link que você recebeu",
@@ -1550,7 +1722,6 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       }
 
       state.client = client;
-      state.storageKey = "catalogo_placas_order_v2__" + client.toLowerCase();
       clientTitle.textContent = prettifyName(client);
       document.title = `Catálogo de Placas — ${prettifyName(client)}`;
 
@@ -1561,8 +1732,9 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
         return;
       }
 
+      let paths;
       try {
-        const paths = await fetchRepoImagePaths(repo);
+        paths = await fetchRepoPaths(repo);
         buildCatalog(paths, client);
       } catch (err) {
         console.error(err);
@@ -1570,25 +1742,27 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           showState("error", "Muitos acessos em pouco tempo",
             "O GitHub limitou temporariamente as consultas deste computador. Aguarde alguns minutos e abra o link de novo.");
         } else {
-          showState("error", "Não foi possível carregar o catálogo",
-            "Verifique sua conexão com a internet e abra o link novamente.");
+          showState("error", "Não foi possível carregar o catálogo", "Verifique sua conexão com a internet e abra o link novamente.");
         }
         return;
       }
 
       if (state.items.size === 0) {
-        showState("error", "Nenhuma placa encontrada",
-          `Não há placas na pasta deste cliente ("${client}"). Confira se o link está correto.`);
+        showState("error", "Nenhuma placa encontrada", `Não há placas na pasta deste cliente ("${client}"). Confira se o link está correto.`);
         return;
       }
 
-      try { localStorage.setItem(LAST_CLIENT_KEY, client); } catch (e) {}
+      await loadSizesConfig(paths, client);
 
-      restoreSavedOrder();
+      lsSet(LAST_CLIENT_KEY, client);
+      loadCarts();
+      loadCustomer();
+
       stateBox.style.display = "none";
       toolbarBox.style.display = "";
       renderCategoryChips();
       renderCatalog();
+      renderCartSelect();
       renderOrder();
       updateHeaderHeight();
     }
@@ -1603,10 +1777,10 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     }
 
     /* =====================================================================
-       LOADING FILE LIST FROM GITHUB (no key needed for public repos)
+       LISTA DE ARQUIVOS DO GITHUB (sem chave para repositórios públicos)
        ===================================================================== */
-    async function fetchRepoImagePaths(repo) {
-      const cacheKey = `catalogo_tree__${repo.owner}/${repo.repo}`;
+    async function fetchRepoPaths(repo) {
+      const cacheKey = `catalogo_tree_v3__${repo.owner}/${repo.repo}`;
       try {
         const cached = JSON.parse(sessionStorage.getItem(cacheKey) || "null");
         if (cached && Date.now() - cached.t < CONFIG.cacheMinutos * 60000) return cached.paths;
@@ -1618,18 +1792,13 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           headers: { Accept: "application/vnd.github+json" }
         });
         if (res.ok) break;
-        if (res.status === 403 || res.status === 429) {
-          const e = new Error("rate limited"); e.rateLimited = true; throw e;
-        }
+        if (res.status === 403 || res.status === 429) { const e = new Error("rate limited"); e.rateLimited = true; throw e; }
       }
       if (!res || !res.ok) throw new Error("GitHub API error " + (res && res.status));
 
       const data = await res.json();
       const prefix = CONFIG.pastaClientes + "/";
-      const paths = (data.tree || [])
-        .filter(n => n.type === "blob" && n.path.startsWith(prefix) && isAcceptedImage(n.path))
-        .map(n => n.path);
-
+      const paths = (data.tree || []).filter(n => n.type === "blob" && n.path.startsWith(prefix)).map(n => n.path);
       try { sessionStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), paths })); } catch (e) {}
       return paths;
     }
@@ -1640,7 +1809,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       const catMap = new Map();
 
       for (const path of paths) {
-        if (!path.toLowerCase().startsWith(clientPrefix)) continue;
+        if (!path.toLowerCase().startsWith(clientPrefix) || !isAcceptedImage(path)) continue;
         const rel = path.slice(clientPrefix.length);
         const parts = rel.split("/");
         if (parts.some(p => p.startsWith(".") || p.startsWith("_"))) continue;
@@ -1650,26 +1819,19 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
         const code = sanitizeCode(fileName);
         if (!code) continue;
         const priority = IMAGE_EXT_PRIORITY[getFileExtension(fileName)] || 0;
-
         const existing = items.get(code);
         if (existing && existing.priority >= priority) continue;
 
         items.set(code, {
-          code,
-          catKey,
-          category: prettifyCategory(catKey),
+          code, catKey, category: prettifyCategory(catKey),
           url: path.split("/").map(encodeURIComponent).join("/"),
-          priority
+          priority, sizes: null
         });
         if (!catMap.has(catKey)) catMap.set(catKey, { key: catKey, name: prettifyCategory(catKey) });
       }
 
-      // Categorias em ordem de pasta (use "01 - ", "02 - " no nome para controlar a ordem)
       const cats = Array.from(catMap.values()).sort((a, b) => a.key.localeCompare(b.key, "pt-BR", { numeric: true }));
-      cats.forEach((cat, i) => {
-        cat.color = pickCategoryColor(cat.name, i);
-        cat.codes = [];
-      });
+      cats.forEach((cat, i) => { cat.color = pickCategoryColor(cat.name, i); cat.codes = []; });
       const catByKey = new Map(cats.map(c => [c.key, c]));
 
       const sortedItems = Array.from(items.values()).sort((a, b) => a.code.localeCompare(b.code, "pt-BR", { numeric: true }));
@@ -1681,43 +1843,115 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
 
       state.items = new Map(sortedItems.map(i => [i.code, i]));
       state.categories = cats;
-    }
-
-    function pickCategoryColor(name, index) {
-      const plain = name.normalize("NFD").replace(/[̀-ͯ]/g, "");
-      for (const [re, color] of CATEGORY_COLOR_RULES) {
-        if (re.test(name) || re.test(plain)) return color;
-      }
-      return CATEGORY_PALETTE[index % CATEGORY_PALETTE.length];
-    }
-
-    function prettifyCategory(folder) {
-      // "01 - Salvamento" -> "Salvamento"; "02_combate-a-incendio" -> "Combate a incendio"
-      const name = folder.replace(/^\s*\d+\s*[-_.)]?\s*/, "").replace(/[_]+/g, " ").trim() || folder;
-      return name.charAt(0).toUpperCase() + name.slice(1);
-    }
-
-    function prettifyName(slug) {
-      return slug.replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim()
-        .replace(/(^|\s)\S/g, s => s.toUpperCase());
-    }
-
-    function getFileExtension(filename) {
-      const idx = filename.lastIndexOf(".");
-      return idx !== -1 ? filename.slice(idx + 1).toLowerCase() : "";
-    }
-
-    function sanitizeCode(filename) {
-      const idx = filename.lastIndexOf(".");
-      return (idx !== -1 ? filename.substring(0, idx) : filename).trim();
-    }
-
-    function isAcceptedImage(name) {
-      return getFileExtension(name) in IMAGE_EXT_PRIORITY;
+      state.codeIndex = new Map();
+      let n = 0;
+      cats.forEach(c => c.codes.forEach(code => state.codeIndex.set(code, n++)));
     }
 
     /* =====================================================================
-       EVENTS
+       TAMANHOS (arquivo tamanhos.csv na pasta do cliente)
+       Exemplo:
+         PCI-001;20x30;30x45;personalizado      <- uma placa específica
+         01 - Salvamento;15x20;20x30            <- todas as placas de uma categoria
+         *;personalizado                        <- todas as placas do cliente
+       ===================================================================== */
+    async function loadSizesConfig(paths, client) {
+      const wanted = (CONFIG.pastaClientes + "/" + client + "/" + CONFIG.arquivoTamanhos).toLowerCase();
+      const path = paths.find(p => p.toLowerCase() === wanted);
+      if (!path) return;
+      let text = "";
+      try {
+        const res = await fetch(path.split("/").map(encodeURIComponent).join("/"), { cache: "no-cache" });
+        if (!res.ok) return;
+        text = await res.text();
+      } catch (e) { console.warn("Não foi possível ler tamanhos.csv", e); return; }
+
+      const byCode = new Map(), byCat = new Map();
+      let all = null;
+      text.replace(/^\uFEFF/, "").split(/\r?\n/).forEach(raw => {
+        const line = raw.trim();
+        if (!line || line.startsWith("#")) return;
+        const parts = line.split(";").map(s => s.trim()).filter(Boolean);
+        if (parts.length < 2) return;
+        const spec = parseSizeSpec(parts.slice(1));
+        if (!spec) return;
+        const key = parts[0];
+        if (key === "*") all = spec;
+        else { byCode.set(normKey(key), spec); byCat.set(normKey(key), spec); }
+      });
+
+      state.items.forEach(item => {
+        item.sizes = byCode.get(normKey(item.code))
+          || byCat.get(normKey(item.catKey)) || byCat.get(normKey(item.category))
+          || all || null;
+      });
+    }
+
+    function parseSizeSpec(tokens) {
+      const fixed = [];
+      let custom = false;
+      tokens.forEach(t => {
+        if (/^personaliz/i.test(normKey(t))) { custom = true; return; }
+        const m = t.replace(/\s*cm\s*$/i, "").match(/^(\d+(?:[.,]\d+)?)\s*[x×X*]\s*(\d+(?:[.,]\d+)?)$/);
+        if (m) {
+          const w = toNum(m[1]), h = toNum(m[2]);
+          if (w > 0 && h > 0) fixed.push({ id: `${fmtDim(w, ".")}x${fmtDim(h, ".")}`, w, h });
+        }
+      });
+      if (!fixed.length && !custom) return null;
+      return { fixed, custom };
+    }
+
+    function normKey(s) { return String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase(); }
+    function toNum(s) { const n = parseFloat(String(s).replace(",", ".")); return isFinite(n) ? n : NaN; }
+    function fmtDim(n, sep = ",") { const r = Math.round(n * 10) / 10; return String(r).replace(".", sep); }
+
+    // Chave de uma linha do carrinho: "CODIGO" ou "CODIGO|20x30" ou "CODIGO|p:25x37.5"
+    function lineKey(code, sizeId) { return sizeId ? `${code}|${sizeId}` : code; }
+    function parseLineKey(key) {
+      const i = key.indexOf("|");
+      if (i === -1) return { code: key, sizeId: "" };
+      return { code: key.slice(0, i), sizeId: key.slice(i + 1) };
+    }
+    function sizeDims(sizeId) {
+      const custom = sizeId.startsWith("p:");
+      const m = sizeId.replace(/^p:/, "").match(/^([\d.]+)x([\d.]+)$/);
+      if (!m) return null;
+      return { w: parseFloat(m[1]), h: parseFloat(m[2]), custom };
+    }
+    function sizeLabel(sizeId) {
+      const d = sizeDims(sizeId);
+      if (!d) return "";
+      return `${fmtDim(d.w)} × ${fmtDim(d.h)} cm${d.custom ? " (personalizado)" : ""}`;
+    }
+    function sizeMacro(sizeId) {
+      const d = sizeDims(sizeId);
+      return d ? `${fmtDim(d.w)}x${fmtDim(d.h)}` : "";
+    }
+    function qtyForCode(code) {
+      let total = 0;
+      state.order.forEach((q, key) => { if (parseLineKey(key).code === code) total += q; });
+      return total;
+    }
+
+    function pickCategoryColor(name, index) {
+      const plain = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      for (const [re, color] of CATEGORY_COLOR_RULES) if (re.test(name) || re.test(plain)) return color;
+      return CATEGORY_PALETTE[index % CATEGORY_PALETTE.length];
+    }
+    function prettifyCategory(folder) {
+      const name = folder.replace(/^\s*\d+\s*[-_.)]?\s*/, "").replace(/[_]+/g, " ").trim() || folder;
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+    function prettifyName(slug) {
+      return slug.replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim().replace(/(^|\s)\S/g, s => s.toUpperCase());
+    }
+    function getFileExtension(filename) { const i = filename.lastIndexOf("."); return i !== -1 ? filename.slice(i + 1).toLowerCase() : ""; }
+    function sanitizeCode(filename) { const i = filename.lastIndexOf("."); return (i !== -1 ? filename.substring(0, i) : filename).trim(); }
+    function isAcceptedImage(name) { return getFileExtension(name) in IMAGE_EXT_PRIORITY; }
+
+    /* =====================================================================
+       EVENTOS
        ===================================================================== */
     function setupIntersectionObserver() {
       if (!("IntersectionObserver" in window)) return;
@@ -1728,16 +1962,8 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           const src = img.dataset.src;
           if (src) {
             img.src = src;
-            img.onload = () => {
-              img.classList.add("loaded");
-              const ph = img.parentElement.querySelector(".thumb-loading-ph");
-              if (ph) ph.style.display = "none";
-            };
-            img.onerror = () => {
-              img.classList.add("thumb-error");
-              const ph = img.parentElement.querySelector(".thumb-loading-ph");
-              if (ph) ph.textContent = "Sem miniatura";
-            };
+            img.onload = () => { img.classList.add("loaded"); const ph = img.parentElement.querySelector(".thumb-loading-ph"); if (ph) ph.style.display = "none"; };
+            img.onerror = () => { img.classList.add("thumb-error"); const ph = img.parentElement.querySelector(".thumb-loading-ph"); if (ph) ph.textContent = "Sem miniatura"; };
             delete img.dataset.src;
           }
           state.observer.unobserve(img);
@@ -1746,48 +1972,71 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     }
 
     function initEventListeners() {
-      // Nome do cliente = "voltar ao início do meu catálogo"
       btnHome.addEventListener("click", goHome);
+      searchInput.addEventListener("input", (e) => { state.searchQuery = e.target.value.trim().toLowerCase(); renderCatalog(); });
+      onlySelectedCheck.addEventListener("change", (e) => { state.onlySelected = e.target.checked; renderCatalog(); });
 
-      searchInput.addEventListener("input", (e) => {
-        state.searchQuery = e.target.value.trim().toLowerCase();
-        renderCatalog();
-      });
-
-      onlySelectedCheck.addEventListener("change", (e) => {
-        state.onlySelected = e.target.checked;
-        renderCatalog();
-      });
-
-      btnCopyMacro.addEventListener("click", copyMacroList);
+      btnSendWhatsapp.addEventListener("click", sendWhatsapp);
       btnDownloadCsv.addEventListener("click", downloadCsv);
       btnClearOrder.addEventListener("click", clearOrderConfirm);
+
+      // Carrinhos
+      cartSelect.addEventListener("change", () => switchCart(cartSelect.value));
+      $("btnNewCart").addEventListener("click", () => askName("Novo carrinho", suggestCartName(), (name) => { createCart(name, {}); showToast(`Carrinho "${name}" criado.`); }));
+      $("btnRenameCart").addEventListener("click", () => { const c = activeCart(); askName("Renomear carrinho", c.name, (name) => { c.name = name; saveCarts(); renderCartSelect(); showToast("Carrinho renomeado."); }); });
+      $("btnDuplicateCart").addEventListener("click", () => { const c = activeCart(); askName("Duplicar carrinho", `${c.name} (cópia)`, (name) => { createCart(name, { ...c.items }); showToast(`Cópia "${name}" criada.`); }); });
+      $("btnDeleteCart").addEventListener("click", deleteActiveCart);
+      $("btnNameOk").addEventListener("click", confirmName);
+      $("nameForm").addEventListener("submit", (e) => { e.preventDefault(); confirmName(); });
+
+      // Dados do cliente
+      $("btnEditCustomer").addEventListener("click", () => openCustomerModal(false));
+      $("btnSaveCustomer").addEventListener("click", () => { if (saveCustomerFromForm(true)) { closeDialog(customerModal); showToast("Dados salvos."); } });
+      $("btnSaveAndSend").addEventListener("click", () => { if (saveCustomerFromForm(true)) { closeDialog(customerModal); sendWhatsapp(); } });
+      $("cfSameAddr").addEventListener("change", syncShipVisibility);
+      $("cfDoc").addEventListener("input", (e) => { e.target.value = maskDoc(e.target.value); });
+      document.querySelectorAll('#customerForm [data-k="cep"]').forEach(inp => {
+        inp.addEventListener("input", () => {
+          inp.value = maskCep(inp.value);
+          if (inp.value.replace(/\D/g, "").length === 8) lookupCep(inp.closest("[data-addr]"));
+        });
+      });
+      $("customerForm").addEventListener("input", (e) => { const f = e.target.closest(".f"); if (f) f.classList.remove("invalid"); });
+
+      document.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => closeDialog($(b.dataset.close))));
+      [customerModal, nameModal].forEach(m => m.addEventListener("click", (e) => { if (e.target === m) closeDialog(m); }));
 
       btnToggleMobileCart.addEventListener("click", openMobileDrawer);
       btnCloseMobileCart.addEventListener("click", closeMobileDrawer);
       orderBackdrop.addEventListener("click", closeMobileDrawer);
 
+      // Modal da placa
       modalCloseBtn.addEventListener("click", closeModal);
       imageModal.addEventListener("click", (e) => { if (e.target === imageModal) closeModal(); });
-      window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
-
-      modalQtyMinus.addEventListener("click", () => {
-        if (!state.activeModalCode) return;
-        const current = state.order.get(state.activeModalCode) || 0;
-        setQuantity(state.activeModalCode, Math.max(0, current - 1));
+      window.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+        if (nameModal.classList.contains("open")) closeDialog(nameModal);
+        else if (customerModal.classList.contains("open")) closeDialog(customerModal);
+        else closeModal();
       });
-      modalQtyPlus.addEventListener("click", () => {
-        if (!state.activeModalCode) return;
-        const current = state.order.get(state.activeModalCode) || 0;
-        setQuantity(state.activeModalCode, current + 1);
-      });
+      $("modalQtyMinus").addEventListener("click", () => changeModalQty(-1));
+      $("modalQtyPlus").addEventListener("click", () => changeModalQty(+1));
       modalQtyInput.addEventListener("change", (e) => {
-        if (!state.activeModalCode) return;
+        const key = currentModalKey();
+        if (!key) { updateModalQtyUI(); return; }
         const val = parseInt(e.target.value, 10);
-        setQuantity(state.activeModalCode, isNaN(val) ? 0 : Math.max(0, val));
+        setQuantity(key, isNaN(val) ? 0 : Math.max(0, val));
+      });
+      customW.addEventListener("input", () => onCustomInput("w"));
+      customH.addEventListener("input", () => onCustomInput("h"));
+      modalImg.addEventListener("load", () => {
+        const sizes = state.modal.code && state.items.get(state.modal.code).sizes;
+        if (sizes && !sizes.fixed.length && modalImg.naturalWidth && modalImg.naturalHeight) {
+          state.modal.ratio = modalImg.naturalWidth / modalImg.naturalHeight;
+        }
       });
 
-      btnDismissRestored.addEventListener("click", () => { restoredAlert.style.display = "none"; });
+      restoredAlert.querySelector("#btnDismissRestored").addEventListener("click", () => { restoredAlert.style.display = "none"; });
     }
 
     function goHome() {
@@ -1795,17 +2044,15 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       closeMobileDrawer();
       if (state.client) setUrlClient(state.client);
       if (state.searchQuery || state.onlySelected) {
-        state.searchQuery = "";
-        state.onlySelected = false;
-        searchInput.value = "";
-        onlySelectedCheck.checked = false;
+        state.searchQuery = ""; state.onlySelected = false;
+        searchInput.value = ""; onlySelectedCheck.checked = false;
         renderCatalog();
       }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     /* =====================================================================
-       RENDER: CATEGORY SHORTCUTS + SECTIONS
+       RENDER: CATEGORIAS + GRADE
        ===================================================================== */
     function renderCategoryChips() {
       categoryChips.innerHTML = "";
@@ -1824,14 +2071,12 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       });
     }
 
-    function sectionId(catKey) {
-      return "cat-" + catKey.normalize("NFD").replace(/[^\w]+/g, "-").toLowerCase();
-    }
+    function sectionId(catKey) { return "cat-" + catKey.normalize("NFD").replace(/[^\w]+/g, "-").toLowerCase(); }
 
     function itemMatches(item) {
       const q = state.searchQuery;
       if (q && !item.code.toLowerCase().includes(q) && !item.category.toLowerCase().includes(q)) return false;
-      if (state.onlySelected && !(state.order.get(item.code) > 0)) return false;
+      if (state.onlySelected && !(qtyForCode(item.code) > 0)) return false;
       return true;
     }
 
@@ -1842,13 +2087,11 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       state.categories.forEach(cat => {
         const items = cat.codes.map(c => state.items.get(c)).filter(itemMatches);
         visible += items.length;
-
         const section = document.createElement("section");
         section.className = "cat-section";
         section.id = sectionId(cat.key);
         section.style.setProperty("--cat", cat.color);
         if (!items.length) section.style.display = "none";
-
         section.innerHTML = `
           <div class="cat-header">
             <h2>${escapeHtml(cat.name)}</h2>
@@ -1857,67 +2100,47 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           </div>
           <div class="cards-grid"></div>`;
         const grid = section.querySelector(".cards-grid");
-        items.forEach(item => grid.appendChild(createPlateCard(item, state.order.get(item.code) || 0)));
+        items.forEach(item => grid.appendChild(createPlateCard(item)));
         frag.appendChild(section);
       });
 
       catalogSections.innerHTML = "";
       catalogSections.appendChild(frag);
-
       catalogStat.textContent = `${state.items.size} ${state.items.size === 1 ? "placa" : "placas"}`;
       filterStat.textContent = `${visible} visíveis`;
       noResults.style.display = visible === 0 && state.items.size > 0 ? "block" : "none";
 
-      // Atalhos de categoria: esconde os que ficaram sem resultado
       categoryChips.querySelectorAll(".chip-btn").forEach(btn => {
         const sec = document.getElementById(sectionId(btn.dataset.cat));
         btn.style.display = sec && sec.style.display !== "none" ? "" : "none";
       });
-
       updateSectionSelectedCounts();
 
-      if (state.observer) {
-        catalogSections.querySelectorAll("img[data-src]").forEach(img => state.observer.observe(img));
-      } else {
-        catalogSections.querySelectorAll("img[data-src]").forEach(img => {
-          img.src = img.dataset.src; img.classList.add("loaded");
-        });
-      }
+      const imgs = catalogSections.querySelectorAll("img[data-src]");
+      if (state.observer) imgs.forEach(img => state.observer.observe(img));
+      else imgs.forEach(img => { img.src = img.dataset.src; img.classList.add("loaded"); });
     }
 
     function updateSectionSelectedCounts() {
       state.categories.forEach(cat => {
         const sec = document.getElementById(sectionId(cat.key));
         if (!sec) return;
-        const total = cat.codes.reduce((s, c) => s + (state.order.get(c) || 0), 0);
+        const total = cat.codes.reduce((s, c) => s + qtyForCode(c), 0);
         const el = sec.querySelector("[data-cat-selected]");
         if (el) el.textContent = total > 0 ? `${total} no pedido` : "";
       });
     }
 
-    function createPlateCard(item, qty) {
+    function createPlateCard(item) {
+      const qty = qtyForCode(item.code);
       const card = document.createElement("article");
       card.className = `plate-card ${qty > 0 ? "has-qty" : ""}`;
       card.dataset.code = item.code;
       card.style.setProperty("--cat", item.color);
 
-      card.innerHTML = `
-        <div class="selected-indicator">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span class="indicator-qty">${qty}</span>
-        </div>
-        <div class="thumb-wrapper" title="Clique para ampliar" role="button" tabindex="0">
-          <div class="thumb-loading-ph">Carregando...</div>
-          <img class="thumb-img" data-src="${escapeHtml(item.url)}" alt="Placa ${escapeHtml(item.code)}">
-        </div>
-        <div class="plate-details">
-          <div class="plate-code-line">
-            <span class="plate-code">${escapeHtml(item.code)}</span>
-          </div>
-          <span class="plate-category-badge" title="${escapeHtml(item.category)}">${escapeHtml(item.category)}</span>
-          <div class="qty-stepper">
+      const controls = item.sizes
+        ? `<button type="button" class="btn-choose-size">Escolher tamanho</button>`
+        : `<div class="qty-stepper">
             <button type="button" class="step-btn btn-minus" aria-label="Diminuir quantidade de ${escapeHtml(item.code)}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             </button>
@@ -1925,93 +2148,104 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
             <button type="button" class="step-btn btn-plus" aria-label="Aumentar quantidade de ${escapeHtml(item.code)}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             </button>
-          </div>
+          </div>`;
+
+      card.innerHTML = `
+        <div class="selected-indicator">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span class="indicator-qty">${qty}</span>
         </div>
-      `;
+        <div class="thumb-wrapper" title="Clique para ampliar" role="button" tabindex="0">
+          <div class="thumb-loading-ph">Carregando...</div>
+          <img class="thumb-img" data-src="${escapeHtml(item.url)}" alt="Placa ${escapeHtml(item.code)}">
+        </div>
+        <div class="plate-details">
+          <div class="plate-code-line"><span class="plate-code">${escapeHtml(item.code)}</span></div>
+                    ${controls}
+        </div>`;
 
       const thumbWrap = card.querySelector(".thumb-wrapper");
       thumbWrap.addEventListener("click", () => openModal(item.code));
-      thumbWrap.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(item.code); }
-      });
+      thumbWrap.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(item.code); } });
 
-      const input = card.querySelector(".qty-input");
-      card.querySelector(".btn-minus").addEventListener("click", () => {
-        setQuantity(item.code, Math.max(0, (state.order.get(item.code) || 0) - 1));
-      });
-      card.querySelector(".btn-plus").addEventListener("click", () => {
-        setQuantity(item.code, (state.order.get(item.code) || 0) + 1);
-      });
-      input.addEventListener("change", (e) => {
-        const val = parseInt(e.target.value, 10);
-        setQuantity(item.code, isNaN(val) ? 0 : Math.max(0, val));
-      });
-      input.addEventListener("wheel", (e) => {
-        if (document.activeElement !== input) return; // não atrapalha a rolagem da página
-        e.preventDefault();
-        const delta = e.deltaY < 0 ? 1 : -1;
-        setQuantity(item.code, Math.max(0, (state.order.get(item.code) || 0) + delta));
-      }, { passive: false });
-
+      if (item.sizes) {
+        card.querySelector(".btn-choose-size").addEventListener("click", () => openModal(item.code));
+      } else {
+        const input = card.querySelector(".qty-input");
+        card.querySelector(".btn-minus").addEventListener("click", () => setQuantity(item.code, Math.max(0, (state.order.get(item.code) || 0) - 1)));
+        card.querySelector(".btn-plus").addEventListener("click", () => setQuantity(item.code, (state.order.get(item.code) || 0) + 1));
+        input.addEventListener("change", (e) => { const v = parseInt(e.target.value, 10); setQuantity(item.code, isNaN(v) ? 0 : Math.max(0, v)); });
+        input.addEventListener("wheel", (e) => {
+          if (document.activeElement !== input) return;
+          e.preventDefault();
+          setQuantity(item.code, Math.max(0, (state.order.get(item.code) || 0) + (e.deltaY < 0 ? 1 : -1)));
+        }, { passive: false });
+      }
       return card;
     }
 
-    /* =====================================================================
-       QUANTITY MANAGEMENT & PERSISTENCE
-       ===================================================================== */
-    function setQuantity(code, qty) {
-      if (qty <= 0) state.order.delete(code);
-      else state.order.set(code, qty);
-
+    function refreshCard(code) {
       const card = catalogSections.querySelector(`.plate-card[data-code="${CSS.escape(code)}"]`);
-      if (card) {
-        const input = card.querySelector(".qty-input");
-        const qtyNum = card.querySelector(".indicator-qty");
-        if (input) input.value = qty;
-        card.classList.toggle("has-qty", qty > 0);
-        if (qtyNum && qty > 0) qtyNum.textContent = qty;
-      }
-
-      if (state.activeModalCode === code) modalQtyInput.value = Math.max(0, qty);
-
-      persistOrder();
-      renderOrder();
-      updateSectionSelectedCounts();
-
-      if (state.onlySelected && qty <= 0) renderCatalog();
+      if (!card) return;
+      const total = qtyForCode(code);
+      card.classList.toggle("has-qty", total > 0);
+      const ind = card.querySelector(".indicator-qty");
+      if (ind) ind.textContent = total;
+      const input = card.querySelector(".qty-input");
+      if (input) input.value = total;
     }
 
-    // Pedido sempre na ordem do catálogo (categoria, depois código)
+    /* =====================================================================
+       QUANTIDADES
+       ===================================================================== */
+    function setQuantity(key, qty) {
+      if (qty <= 0) state.order.delete(key); else state.order.set(key, qty);
+      const { code } = parseLineKey(key);
+      refreshCard(code);
+      if (state.modal.code === code) updateModalQtyUI();
+      persistActiveCart();
+      renderOrder();
+      renderCartSelect();
+      updateSectionSelectedCounts();
+      if (state.onlySelected && qtyForCode(code) <= 0) renderCatalog();
+    }
+
     function orderedEntries() {
-      const entries = [];
-      state.categories.forEach(cat => cat.codes.forEach(code => {
-        const q = state.order.get(code);
-        if (q > 0) entries.push([code, q]);
-      }));
-      // Códigos salvos que não existem mais no catálogo vão no fim
-      state.order.forEach((q, code) => { if (!state.items.has(code) && q > 0) entries.push([code, q]); });
-      return entries;
+      const entries = Array.from(state.order.entries()).filter(([, q]) => q > 0);
+      const pos = (key) => {
+        const { code, sizeId } = parseLineKey(key);
+        const base = state.codeIndex.has(code) ? state.codeIndex.get(code) : 1e9;
+        const item = state.items.get(code);
+        let s = 0;
+        if (sizeId) {
+          const fi = item && item.sizes ? item.sizes.fixed.findIndex(f => f.id === sizeId) : -1;
+          s = fi >= 0 ? fi + 1 : 500;
+        }
+        return [base, s, key];
+      };
+      return entries.sort((a, b) => {
+        const pa = pos(a[0]), pb = pos(b[0]);
+        return pa[0] - pb[0] || pa[1] - pb[1] || pa[2].localeCompare(pb[2], "pt-BR", { numeric: true });
+      });
     }
 
     function renderOrder() {
-      const orderEntries = orderedEntries();
-      const distinctCount = orderEntries.length;
-
+      const entries = orderedEntries();
       let totalPlates = 0;
       const catCount = new Map();
-      orderEntries.forEach(([code, qty]) => {
+      entries.forEach(([key, qty]) => {
         totalPlates += qty;
-        const item = state.items.get(code);
+        const item = state.items.get(parseLineKey(key).code);
         const cat = item ? item.category : "Outros";
         catCount.set(cat, (catCount.get(cat) || 0) + qty);
       });
 
       orderBadgeCount.textContent = totalPlates;
       mobileCartCount.textContent = totalPlates;
-      summaryDistinct.textContent = distinctCount;
+      summaryDistinct.textContent = entries.length;
       summaryTotal.textContent = totalPlates;
 
-      if (catCount.size > 0) {
+      if (catCount.size) {
         const parts = [];
         catCount.forEach((q, c) => parts.push(`<strong>${escapeHtml(c)}:</strong> ${q}`));
         categoryBreakdown.innerHTML = parts.join(" &nbsp;|&nbsp; ");
@@ -2020,136 +2254,530 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       }
 
       orderList.innerHTML = "";
-      if (distinctCount === 0) {
+      if (!entries.length) {
         orderList.appendChild(orderEmptyState);
         orderEmptyState.style.display = "block";
-        return;
+      } else {
+        orderEmptyState.style.display = "none";
+        const frag = document.createDocumentFragment();
+        entries.forEach(([key, qty]) => {
+          const { code, sizeId } = parseLineKey(key);
+          const item = state.items.get(code) || { code, category: "Não está mais no catálogo", url: "", color: "#94a3b8" };
+          const row = document.createElement("div");
+          row.className = "order-item";
+          row.style.setProperty("--cat", item.color);
+          row.innerHTML = `
+            <img class="order-thumb-mini" src="${item.url ? escapeHtml(item.url) : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'/%3E"}" alt="" loading="lazy">
+            <div class="order-item-info">
+              <div class="order-item-code">${escapeHtml(code)}</div>
+              ${sizeId ? `<div class="order-item-size">${escapeHtml(sizeLabel(sizeId))}</div>` : ""}
+              <div class="order-item-cat">${escapeHtml(item.category)}</div>
+            </div>
+            <div class="order-item-stepper">
+              <button type="button" class="btn-order-minus" aria-label="Diminuir"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+              <span class="order-item-qty">${qty}</span>
+              <button type="button" class="btn-order-plus" aria-label="Aumentar"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+            </div>
+            <button type="button" class="order-item-remove" title="Remover do pedido" aria-label="Remover ${escapeHtml(code)}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+            </button>`;
+          row.querySelector(".btn-order-minus").onclick = () => setQuantity(key, Math.max(0, qty - 1));
+          row.querySelector(".btn-order-plus").onclick = () => setQuantity(key, qty + 1);
+          row.querySelector(".order-item-remove").onclick = () => setQuantity(key, 0);
+          frag.appendChild(row);
+        });
+        orderList.appendChild(frag);
       }
-      orderEmptyState.style.display = "none";
-
-      const frag = document.createDocumentFragment();
-      orderEntries.forEach(([code, qty]) => {
-        const item = state.items.get(code) || { code, category: "Não está mais no catálogo", url: "", color: "#94a3b8" };
-        const row = document.createElement("div");
-        row.className = "order-item";
-        row.style.setProperty("--cat", item.color);
-        row.innerHTML = `
-          <img class="order-thumb-mini" src="${item.url ? escapeHtml(item.url) : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'/%3E"}" alt="" loading="lazy">
-          <div class="order-item-info">
-            <div class="order-item-code">${escapeHtml(code)}</div>
-            <div class="order-item-cat">${escapeHtml(item.category)}</div>
-          </div>
-          <div class="order-item-stepper">
-            <button type="button" class="btn-order-minus" aria-label="Diminuir">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </button>
-            <span class="order-item-qty">${qty}</span>
-            <button type="button" class="btn-order-plus" aria-label="Aumentar">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </button>
-          </div>
-          <button type="button" class="order-item-remove" title="Remover do pedido" aria-label="Remover ${escapeHtml(code)}">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 6h18"></path>
-              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-            </svg>
-          </button>
-        `;
-        row.querySelector(".btn-order-minus").onclick = () => setQuantity(code, Math.max(0, qty - 1));
-        row.querySelector(".btn-order-plus").onclick = () => setQuantity(code, qty + 1);
-        row.querySelector(".order-item-remove").onclick = () => setQuantity(code, 0);
-        frag.appendChild(row);
-      });
-      orderList.appendChild(frag);
-    }
-
-    function persistOrder() {
-      try {
-        localStorage.setItem(state.storageKey, JSON.stringify(Object.fromEntries(state.order.entries())));
-      } catch (err) {
-        console.warn("Falha ao salvar no localStorage", err);
-      }
-    }
-
-    function restoreSavedOrder() {
-      try {
-        const parsed = JSON.parse(localStorage.getItem(state.storageKey) || "null");
-        if (!parsed || typeof parsed !== "object") return;
-        let count = 0;
-        for (const [k, v] of Object.entries(parsed)) {
-          const num = parseInt(v, 10);
-          if (num > 0) { state.order.set(k, num); count++; }
-        }
-        if (count > 0) restoredAlert.style.display = "flex";
-      } catch (err) {
-        console.warn("Falha ao recuperar pedido salvo", err);
-      }
+      updateSendState();
     }
 
     function clearOrderConfirm() {
       if (state.order.size === 0) return;
-      if (confirm(`Tem certeza que deseja zerar todas as quantidades deste pedido (${state.order.size} modelos)?`)) {
+      if (confirm(`Esvaziar o carrinho "${activeCart().name}"? Todas as quantidades dele serão zeradas.`)) {
         state.order.clear();
-        persistOrder();
+        persistActiveCart();
         renderCatalog();
         renderOrder();
-        showToast("Pedido limpo com sucesso.");
+        renderCartSelect();
+        showToast("Carrinho esvaziado.");
       }
     }
 
     /* =====================================================================
-       MACRO EXPORT & CSV
+       CARRINHOS SALVOS (ficam no navegador do cliente)
        ===================================================================== */
-    function generateMacroText() {
-      // Formato estrito para CorelDRAW: CODIGO;QTD (uma linha por item, sem cabeçalho)
-      return orderedEntries().map(([code, qty]) => `${code};${qty}`).join("\n");
+    function cartsKey() { return `catalogo_carrinhos__${state.client.toLowerCase()}`; }
+    function newId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+    function activeCart() { return state.carts.list.find(c => c.id === state.carts.activeId) || state.carts.list[0]; }
+
+    function loadCarts() {
+      let carts = null;
+      try { carts = JSON.parse(lsGet(cartsKey()) || "null"); } catch (e) {}
+      if (!carts || !Array.isArray(carts.list) || !carts.list.length) {
+        // Migra o pedido salvo pela versão anterior
+        let old = {};
+        try { old = JSON.parse(lsGet("catalogo_placas_order_v2__" + state.client.toLowerCase()) || "{}") || {}; } catch (e) {}
+        carts = { activeId: "", list: [{ id: newId(), name: "Carrinho 1", items: old, updated: Date.now() }] };
+        carts.activeId = carts.list[0].id;
+      }
+      state.carts = carts;
+      loadActiveIntoOrder();
+      if (state.order.size > 0) restoredAlert.style.display = "flex";
+      saveCarts();
     }
 
-    async function copyMacroList() {
+    function loadActiveIntoOrder() {
+      const cart = activeCart();
+      state.carts.activeId = cart.id;
+      state.order = new Map();
+      Object.entries(cart.items || {}).forEach(([k, v]) => { const n = parseInt(v, 10); if (n > 0) state.order.set(k, n); });
+    }
+
+    function persistActiveCart() {
+      const cart = activeCart();
+      cart.items = Object.fromEntries(state.order.entries());
+      cart.updated = Date.now();
+      saveCarts();
+    }
+
+    function saveCarts() { lsSet(cartsKey(), JSON.stringify(state.carts)); }
+
+    function cartTotal(cart) { return Object.values(cart.items || {}).reduce((s, q) => s + (parseInt(q, 10) || 0), 0); }
+
+    function renderCartSelect() {
+      cartSelect.innerHTML = "";
+      state.carts.list.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c.id;
+        const t = cartTotal(c);
+        opt.textContent = `${c.name} — ${t} ${t === 1 ? "placa" : "placas"}`;
+        if (c.id === state.carts.activeId) opt.selected = true;
+        cartSelect.appendChild(opt);
+      });
+      $("btnDeleteCart").title = state.carts.list.length > 1 ? "Excluir este carrinho" : "Excluir (vai sobrar um carrinho vazio)";
+    }
+
+    function switchCart(id) {
+      persistActiveCart();
+      state.carts.activeId = id;
+      loadActiveIntoOrder();
+      saveCarts();
+      restoredAlert.style.display = "none";
+      renderCatalog();
+      renderOrder();
+      renderCartSelect();
+      showToast(`Carrinho "${activeCart().name}" aberto.`);
+    }
+
+    function createCart(name, items) {
+      persistActiveCart();
+      const cart = { id: newId(), name, items, updated: Date.now() };
+      state.carts.list.push(cart);
+      state.carts.activeId = cart.id;
+      loadActiveIntoOrder();
+      saveCarts();
+      renderCatalog();
+      renderOrder();
+      renderCartSelect();
+    }
+
+    function deleteActiveCart() {
+      const cart = activeCart();
+      if (!confirm(`Excluir o carrinho "${cart.name}"? Isso não pode ser desfeito.`)) return;
+      state.carts.list = state.carts.list.filter(c => c.id !== cart.id);
+      if (!state.carts.list.length) state.carts.list.push({ id: newId(), name: "Carrinho 1", items: {}, updated: Date.now() });
+      state.carts.activeId = state.carts.list[0].id;
+      loadActiveIntoOrder();
+      saveCarts();
+      renderCatalog();
+      renderOrder();
+      renderCartSelect();
+      showToast("Carrinho excluído.");
+    }
+
+    function suggestCartName() {
+      let n = state.carts.list.length + 1;
+      const names = new Set(state.carts.list.map(c => c.name.toLowerCase()));
+      while (names.has(`carrinho ${n}`)) n++;
+      return `Carrinho ${n}`;
+    }
+
+    function askName(title, value, onOk) {
+      $("nameModalTitle").textContent = title;
+      const input = $("nameInput");
+      input.value = value || "";
+      input.closest(".f").classList.remove("invalid");
+      state.nameDialog = onOk;
+      openDialog(nameModal);
+      setTimeout(() => { input.focus(); input.select(); }, 50);
+    }
+
+    function confirmName() {
+      const input = $("nameInput");
+      const name = input.value.trim().replace(/\s+/g, " ");
+      if (!name) { input.closest(".f").classList.add("invalid"); input.focus(); return; }
+      const cb = state.nameDialog;
+      state.nameDialog = null;
+      closeDialog(nameModal);
+      if (cb) cb(name);
+    }
+
+    /* =====================================================================
+       MODAL DA PLACA: tamanho + quantidade
+       ===================================================================== */
+    function openModal(code) {
+      const item = state.items.get(code);
+      if (!item) return;
+      state.modal = { code, sizeId: null, ratio: 1 };
+      modalCode.textContent = item.code;
+      modalCat.textContent = item.category;
+      modalImg.src = item.url;
+      modalImg.alt = `Placa ${item.code}`;
+
+      if (item.sizes) {
+        sizePicker.style.display = "";
+        if (item.sizes.fixed.length) state.modal.ratio = item.sizes.fixed[0].w / item.sizes.fixed[0].h;
+        else if (modalImg.complete && modalImg.naturalWidth) state.modal.ratio = modalImg.naturalWidth / modalImg.naturalHeight;
+        customW.value = ""; customH.value = "";
+        customSize.classList.remove("open");
+        renderSizeOptions();
+      } else {
+        sizePicker.style.display = "none";
+        state.modal.sizeId = "";
+      }
+      updateModalQtyUI();
+      imageModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      modalCloseBtn.focus();
+    }
+
+    function renderSizeOptions() {
+      const item = state.items.get(state.modal.code);
+      sizeOptions.innerHTML = "";
+      item.sizes.fixed.forEach(f => {
+        const q = state.order.get(lineKey(item.code, f.id)) || 0;
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "size-opt" + (state.modal.sizeId === f.id ? " active" : "");
+        b.innerHTML = `${fmtDim(f.w)} × ${fmtDim(f.h)} cm${q ? ` <span class="size-opt-qty">${q}</span>` : ""}`;
+        b.onclick = () => { state.modal.sizeId = f.id; customSize.classList.remove("open"); renderSizeOptions(); updateModalQtyUI(); };
+        sizeOptions.appendChild(b);
+      });
+      if (item.sizes.custom) {
+        const isCustom = customSize.classList.contains("open");
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "size-opt" + (isCustom ? " active" : "");
+        b.textContent = "Personalizado";
+        b.onclick = () => {
+          customSize.classList.add("open");
+          state.modal.sizeId = customSizeIdFromInputs();
+          renderSizeOptions();
+          updateModalQtyUI();
+          setTimeout(() => customW.focus(), 30);
+        };
+        sizeOptions.appendChild(b);
+      }
+    }
+
+    function customSizeIdFromInputs() {
+      const w = toNum(customW.value), h = toNum(customH.value);
+      if (!(w > 0) || !(h > 0)) return null;
+      return `p:${fmtDim(w, ".")}x${fmtDim(h, ".")}`;
+    }
+
+    // Largura e altura sempre proporcionais
+    function onCustomInput(which) {
+      const r = state.modal.ratio || 1;
+      if (which === "w") {
+        const w = toNum(customW.value);
+        customH.value = w > 0 ? fmtDim(w / r) : "";
+      } else {
+        const h = toNum(customH.value);
+        customW.value = h > 0 ? fmtDim(h * r) : "";
+      }
+      state.modal.sizeId = customSizeIdFromInputs();
+      updateModalQtyUI();
+    }
+
+    function currentModalKey() {
+      const { code, sizeId } = state.modal;
+      if (!code) return null;
+      const item = state.items.get(code);
+      if (item.sizes) return sizeId ? lineKey(code, sizeId) : null;
+      return code;
+    }
+
+    function updateModalQtyUI() {
+      const code = state.modal.code;
+      if (!code) return;
+      const item = state.items.get(code);
+      const key = currentModalKey();
+      modalQtyRow.classList.toggle("locked", !key);
+      if (!key) {
+        modalQtyHint.textContent = customSize.classList.contains("open")
+          ? "Digite a largura ou a altura para liberar a quantidade."
+          : "Escolha um tamanho acima para definir a quantidade.";
+        modalQtyInput.value = 0;
+      } else {
+        modalQtyHint.textContent = item.sizes ? `2. Quantidade (${sizeLabel(state.modal.sizeId)}):` : "Quantidade:";
+        modalQtyInput.value = state.order.get(key) || 0;
+      }
+      if (item.sizes) {
+        const lines = orderedEntries().filter(([k]) => parseLineKey(k).code === code && parseLineKey(k).sizeId);
+        modalVariants.textContent = lines.length
+          ? "No carrinho: " + lines.map(([k, q]) => `${q}× ${sizeLabel(parseLineKey(k).sizeId)}`).join(" · ")
+          : "";
+        if (sizeOptions.children.length) {
+          // atualiza os contadores nos botões sem perder o foco dos campos
+          Array.from(sizeOptions.querySelectorAll(".size-opt")).forEach((b, i) => {
+            const f = item.sizes.fixed[i];
+            if (!f) return;
+            const q = state.order.get(lineKey(code, f.id)) || 0;
+            b.innerHTML = `${fmtDim(f.w)} × ${fmtDim(f.h)} cm${q ? ` <span class="size-opt-qty">${q}</span>` : ""}`;
+          });
+        }
+      } else {
+        modalVariants.textContent = "";
+      }
+    }
+
+    function changeModalQty(delta) {
+      const key = currentModalKey();
+      if (!key) { updateModalQtyUI(); return; }
+      setQuantity(key, Math.max(0, (state.order.get(key) || 0) + delta));
+    }
+
+    function closeModal() {
+      imageModal.classList.remove("open");
+      if (!customerModal.classList.contains("open") && !nameModal.classList.contains("open")) document.body.style.overflow = "";
+      state.modal = { code: null, sizeId: null, ratio: 1 };
+    }
+
+    function openDialog(el) { el.classList.add("open"); document.body.style.overflow = "hidden"; }
+    function closeDialog(el) {
+      el.classList.remove("open");
+      if (!imageModal.classList.contains("open") && !customerModal.classList.contains("open") && !nameModal.classList.contains("open")) document.body.style.overflow = "";
+    }
+
+    /* =====================================================================
+       DADOS DO CLIENTE (obrigatórios para enviar)
+       ===================================================================== */
+    function customerKey() { return `catalogo_dados_cliente__${state.client.toLowerCase()}`; }
+    const ADDR_KEYS = ["cep", "rua", "numero", "complemento", "bairro", "cidade", "uf"];
+
+    function emptyAddr() { return { cep: "", rua: "", numero: "", complemento: "", bairro: "", cidade: "", uf: "" }; }
+    function loadCustomer() {
+      let c = null;
+      try { c = JSON.parse(lsGet(customerKey()) || "null"); } catch (e) {}
+      state.customer = Object.assign({ name: "", doc: "", bill: emptyAddr(), same: false, ship: emptyAddr(), notes: "" }, c || {});
+      updateSendState();
+    }
+
+    function addrErrors(a) {
+      const errs = [];
+      if ((a.cep || "").replace(/\D/g, "").length !== 8) errs.push("cep");
+      ["rua", "numero", "bairro", "cidade"].forEach(k => { if (!String(a[k] || "").trim()) errs.push(k); });
+      if (!UFS.includes(String(a.uf || "").trim().toUpperCase())) errs.push("uf");
+      return errs;
+    }
+
+    function customerErrors(c) {
+      const e = { name: !String(c.name || "").trim(), doc: !isValidDoc(c.doc), bill: addrErrors(c.bill), ship: c.same ? [] : addrErrors(c.ship) };
+      e.any = e.name || e.doc || e.bill.length > 0 || e.ship.length > 0;
+      return e;
+    }
+
+    function isCustomerComplete() { return state.customer && !customerErrors(state.customer).any; }
+
+    function updateSendState() {
+      if (!state.customer) return;
+      const ok = isCustomerComplete();
+      customerStatus.classList.toggle("ok", ok);
+      customerStatusText.textContent = ok
+        ? `✅ ${state.customer.name} · ${state.customer.doc}`
+        : "⚠️ Dados de faturamento e entrega pendentes";
+      $("btnEditCustomer").textContent = ok ? "Editar" : "Preencher";
+      const ready = ok && state.order.size > 0;
+      btnSendWhatsapp.classList.toggle("is-locked", !ready);
+      btnSendWhatsapp.setAttribute("aria-disabled", String(!ready));
+    }
+
+    function openCustomerModal(showAlert) {
+      const c = state.customer;
+      $("cfName").value = c.name || "";
+      $("cfDoc").value = c.doc || "";
+      $("cfNotes").value = c.notes || "";
+      $("cfSameAddr").checked = !!c.same;
+      fillAddr("bill", c.bill);
+      fillAddr("ship", c.ship);
+      syncShipVisibility();
+      customerModal.querySelectorAll(".f.invalid").forEach(f => f.classList.remove("invalid"));
+      customerAlert.classList.toggle("show", !!showAlert);
+      if (showAlert) markInvalid(customerErrors(c));
+      openDialog(customerModal);
+    }
+
+    function fillAddr(which, a) {
+      const grid = customerModal.querySelector(`[data-addr="${which}"]`);
+      ADDR_KEYS.forEach(k => { grid.querySelector(`[data-k="${k}"]`).value = (a && a[k]) || ""; });
+    }
+    function readAddr(which) {
+      const grid = customerModal.querySelector(`[data-addr="${which}"]`);
+      const a = {};
+      ADDR_KEYS.forEach(k => { a[k] = grid.querySelector(`[data-k="${k}"]`).value.trim(); });
+      a.uf = a.uf.toUpperCase();
+      return a;
+    }
+    function syncShipVisibility() { $("shipGrid").style.display = $("cfSameAddr").checked ? "none" : ""; }
+
+    function markInvalid(e) {
+      $("cfName").closest(".f").classList.toggle("invalid", !!e.name);
+      $("cfDoc").closest(".f").classList.toggle("invalid", !!e.doc);
+      [["bill", e.bill], ["ship", e.ship]].forEach(([w, list]) => {
+        const grid = customerModal.querySelector(`[data-addr="${w}"]`);
+        ADDR_KEYS.forEach(k => grid.querySelector(`[data-k="${k}"]`).closest(".f").classList.toggle("invalid", list.includes(k)));
+      });
+    }
+
+    function saveCustomerFromForm(validate) {
+      const c = {
+        name: $("cfName").value.trim(),
+        doc: maskDoc($("cfDoc").value),
+        bill: readAddr("bill"),
+        same: $("cfSameAddr").checked,
+        ship: readAddr("ship"),
+        notes: $("cfNotes").value.trim()
+      };
+      state.customer = c;
+      lsSet(customerKey(), JSON.stringify(c));
+      updateSendState();
+      if (!validate) return true;
+      const e = customerErrors(c);
+      markInvalid(e);
+      if (e.any) {
+        customerAlert.classList.add("show");
+        const first = customerModal.querySelector(".f.invalid input");
+        if (first) first.focus();
+        return false;
+      }
+      return true;
+    }
+
+    async function lookupCep(grid) {
+      const cep = grid.querySelector('[data-k="cep"]').value.replace(/\D/g, "");
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        if (!res.ok) return;
+        const d = await res.json();
+        if (d.erro) { grid.querySelector('[data-k="cep"]').closest(".f").classList.add("invalid"); return; }
+        const set = (k, v) => { const inp = grid.querySelector(`[data-k="${k}"]`); if (v && !inp.value.trim()) { inp.value = v; inp.closest(".f").classList.remove("invalid"); } };
+        set("rua", d.logradouro); set("bairro", d.bairro); set("cidade", d.localidade); set("uf", d.uf);
+        const num = grid.querySelector('[data-k="numero"]');
+        if (!num.value) num.focus();
+      } catch (e) { /* sem internet ou serviço fora: o cliente digita manualmente */ }
+    }
+
+    function maskCep(v) { const d = v.replace(/\D/g, "").slice(0, 8); return d.length > 5 ? d.slice(0, 5) + "-" + d.slice(5) : d; }
+
+    // CPF (11 dígitos) ou CNPJ (14 caracteres; aceita o novo CNPJ alfanumérico)
+    function maskDoc(v) {
+      const raw = String(v).toUpperCase().replace(/[^0-9A-Z]/g, "").slice(0, 14);
+      if (/^\d{0,11}$/.test(raw)) {
+        return raw.replace(/^(\d{3})(\d)/, "$1.$2").replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3").replace(/\.(\d{3})(\d{1,2})$/, ".$1-$2");
+      }
+      let out = raw.slice(0, 2);
+      if (raw.length > 2) out += "." + raw.slice(2, 5);
+      if (raw.length > 5) out += "." + raw.slice(5, 8);
+      if (raw.length > 8) out += "/" + raw.slice(8, 12);
+      if (raw.length > 12) out += "-" + raw.slice(12, 14);
+      return out;
+    }
+
+    function isValidDoc(v) {
+      const raw = String(v || "").toUpperCase().replace(/[^0-9A-Z]/g, "");
+      if (/^\d{11}$/.test(raw)) return isValidCpf(raw);
+      if (/^[0-9A-Z]{12}\d{2}$/.test(raw)) return isValidCnpj(raw);
+      return false;
+    }
+    function isValidCpf(c) {
+      if (/^(\d)\1{10}$/.test(c)) return false;
+      const dv = (len) => { let s = 0; for (let i = 0; i < len; i++) s += +c[i] * (len + 1 - i); const r = (s * 10) % 11; return r === 10 ? 0 : r; };
+      return dv(9) === +c[9] && dv(10) === +c[10];
+    }
+    function isValidCnpj(c) {
+      if (/^(\d)\1{13}$/.test(c)) return false;
+      const val = (ch) => ch.charCodeAt(0) - 48;
+      const dv = (len) => {
+        const w = len === 12 ? [5,4,3,2,9,8,7,6,5,4,3,2] : [6,5,4,3,2,9,8,7,6,5,4,3,2];
+        let s = 0; for (let i = 0; i < len; i++) s += val(c[i]) * w[i];
+        const r = s % 11; return r < 2 ? 0 : 11 - r;
+      };
+      return dv(12) === +c[12] && dv(13) === +c[13];
+    }
+
+    /* =====================================================================
+       ENVIO PELO WHATSAPP
+       ===================================================================== */
+    function formatAddr(a) {
+      return `${a.rua}, ${a.numero}${a.complemento ? " - " + a.complemento : ""} - ${a.bairro} - ${a.cidade}/${a.uf} - CEP ${maskCep(a.cep)}`;
+    }
+
+    function buildMessage() {
+      const c = state.customer;
+      const cart = activeCart();
+      const entries = orderedEntries();
+      const total = entries.reduce((s, [, q]) => s + q, 0);
+      const lines = [
+        "Olá! Segue meu pedido de placas.",
+        "",
+        `*Carrinho:* ${cart.name}`,
+        `*Catálogo:* ${prettifyName(state.client)}`,
+        "",
+        `*Nome/Razão social:* ${c.name}`,
+        `*CPF/CNPJ:* ${c.doc}`,
+        `*Faturamento:* ${formatAddr(c.bill)}`,
+        `*Entrega:* ${c.same ? "mesmo endereço do faturamento" : formatAddr(c.ship)}`
+      ];
+      if (c.notes) lines.push(`*Observações:* ${c.notes}`);
+      lines.push("", `*Itens (${total} ${total === 1 ? "placa" : "placas"}):*`);
+      entries.forEach(([key, qty]) => {
+        const { code, sizeId } = parseLineKey(key);
+        lines.push(sizeId ? `${code};${qty};${sizeMacro(sizeId)}${sizeId.startsWith("p:") ? " (personalizado)" : ""}` : `${code};${qty}`);
+      });
+      return lines.join("\n");
+    }
+
+    function sendWhatsapp() {
       if (state.order.size === 0) {
-        alert("O pedido está vazio. Defina a quantidade de ao menos uma placa antes de copiar.");
+        alert("Este carrinho está vazio. Adicione placas antes de enviar o pedido.");
         return;
       }
-      const text = generateMacroText();
-      let success = false;
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        try { await navigator.clipboard.writeText(text); success = true; }
-        catch (err) { console.warn("Clipboard API falhou, usando fallback", err); }
+      if (!isCustomerComplete()) {
+        showToast("Preencha os dados obrigatórios para enviar o pedido.");
+        openCustomerModal(true);
+        return;
       }
-      if (!success) {
-        const textarea = document.createElement("textarea");
-        textarea.value = text;
-        textarea.style.position = "fixed";
-        textarea.style.left = "-9999px";
-        document.body.appendChild(textarea);
-        textarea.select();
-        try { document.execCommand("copy"); success = true; } catch (e) { console.error("Falha no execCommand", e); }
-        document.body.removeChild(textarea);
-      }
-
-      if (success) showToast("Lista copiada! Cole no CorelDRAW e rode a macro.");
-      else alert("Não foi possível copiar automaticamente. Por favor, tente novamente.");
+      if (!CONFIG.whatsapp) { alert("Número de WhatsApp não configurado no catálogo."); return; }
+      const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(buildMessage())}`;
+      const win = window.open(url, "_blank", "noopener");
+      if (!win) location.href = url;
     }
 
     function downloadCsv() {
-      if (state.order.size === 0) {
-        alert("O pedido está vazio. Adicione placas antes de baixar o CSV.");
-        return;
-      }
-      const BOM = "﻿";
-      const rows = ["codigo;quantidade;categoria"];
-      orderedEntries().forEach(([code, qty]) => {
+      if (state.order.size === 0) { alert("Este carrinho está vazio. Adicione placas antes de baixar o CSV."); return; }
+      const rows = ["codigo;quantidade;tamanho;categoria"];
+      orderedEntries().forEach(([key, qty]) => {
+        const { code, sizeId } = parseLineKey(key);
         const item = state.items.get(code);
-        rows.push(`${code};${qty};${item ? item.category : ""}`);
+        rows.push(`${code};${qty};${sizeId ? sizeMacro(sizeId) + (sizeId.startsWith("p:") ? " (personalizado)" : "") : ""};${item ? item.category : ""}`);
       });
-      const blob = new Blob([BOM + rows.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+      const blob = new Blob(["\uFEFF" + rows.join("\r\n")], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      const clientSlug = (state.client || "pedido").replace(/[^\w-]+/g, "_");
-      link.download = `pedido_${clientSlug}_${new Date().toISOString().slice(0, 10)}.csv`;
+      const slug = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w-]+/g, "_");
+      link.download = `pedido_${slug(state.client)}_${slug(activeCart().name)}_${new Date().toISOString().slice(0, 10)}.csv`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -2157,45 +2785,11 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     }
 
     /* =====================================================================
-       LIGHTBOX MODAL
+       GAVETA DO CELULAR, AVISOS E UTILITÁRIOS
        ===================================================================== */
-    function openModal(code) {
-      const item = state.items.get(code);
-      if (!item) return;
-      state.activeModalCode = code;
-      modalCode.textContent = item.code;
-      modalCat.textContent = item.category;
-      modalImg.src = item.url;
-      modalImg.alt = `Placa ${item.code}`;
-      modalQtyInput.value = state.order.get(code) || 0;
-      imageModal.classList.add("open");
-      document.body.style.overflow = "hidden";
-      modalCloseBtn.focus();
-    }
+    function openMobileDrawer() { orderPanel.classList.add("drawer-open"); orderBackdrop.classList.add("active"); btnCloseMobileCart.style.display = "block"; }
+    function closeMobileDrawer() { orderPanel.classList.remove("drawer-open"); orderBackdrop.classList.remove("active"); }
 
-    function closeModal() {
-      imageModal.classList.remove("open");
-      document.body.style.overflow = "";
-      state.activeModalCode = null;
-    }
-
-    /* =====================================================================
-       MOBILE DRAWER
-       ===================================================================== */
-    function openMobileDrawer() {
-      orderPanel.classList.add("drawer-open");
-      orderBackdrop.classList.add("active");
-      btnCloseMobileCart.style.display = "block";
-    }
-
-    function closeMobileDrawer() {
-      orderPanel.classList.remove("drawer-open");
-      orderBackdrop.classList.remove("active");
-    }
-
-    /* =====================================================================
-       UTILITIES & TOAST
-       ===================================================================== */
     let toastTimeout = null;
     function showToast(msg) {
       toastMsg.textContent = msg;
@@ -2204,14 +2798,12 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
       toastTimeout = setTimeout(() => toastBox.classList.remove("show"), 3500);
     }
 
+    function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { console.warn("Falha ao salvar no navegador", e); } }
+
     function escapeHtml(str) {
       if (!str) return "";
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
   </script>
 </body></html>
