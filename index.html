@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Placas</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basecoat-css/dist/basecoat.cdn.min.css">
+  <style>
+/* Skip artifact shell — fixed styles served beside every artifact.
+   Complements basecoat; artifacts override --accent for their own identity. */
+:root {
+  color-scheme: light dark;
+  --accent: #2563eb;
+  --accent-contrast: #ffffff;
+  --accent-text: color-mix(in srgb, var(--accent) 72%, #000);
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --text: #14171f;
+  --text-muted: #5b6472;
+  --border: rgba(20, 23, 31, 0.10);
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(20, 23, 31, 0.08);
+  --space: 16px;
+}
+/* Theme resolution. Without data-theme the viewer's system preference decides,
+   as it always did. With it, the artifact's own choice wins in BOTH directions:
+   a page that hardcodes one palette must not be handed the opposite set of
+   tokens by the machine it happens to be opened on. The dark values appear
+   twice because a media query cannot be folded into a selector list.
+   The attribute sits inside :where() so these blocks keep the specificity of a
+   bare :root — the page's own <style> is linked after this file and must go on
+   overriding any token it wants, exactly as it could before. */
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    --accent-text: color-mix(in srgb, var(--accent) 78%, #fff);
+    --bg: #101318;
+    --surface: #181c23;
+    --text: #eef1f6;
+    --text-muted: #9aa4b2;
+    --border: rgba(238, 241, 246, 0.12);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
+:root:where([data-theme="dark"]) {
+  color-scheme: dark;
+  --accent-text: color-mix(in srgb, var(--accent) 78%, #fff);
+  --bg: #101318;
+  --surface: #181c23;
+  --text: #eef1f6;
+  --text-muted: #9aa4b2;
+  --border: rgba(238, 241, 246, 0.12);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+:root:where([data-theme="light"]) { color-scheme: light; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+.shell-container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.shell-section { padding: calc(var(--space) * 2) 0; }
+.shell-grid { display: grid; gap: var(--space); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.shell-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: var(--space); }
+.shell-footer { padding: 24px 0 40px; color: var(--text-muted); font-size: 13px; }
+
+.shell-hero { padding: calc(var(--space) * 3) 0 calc(var(--space) * 2); }
+.shell-hero h1 { font-size: clamp(26px, 4vw, 40px); line-height: 1.15; margin: 0 0 10px; text-wrap: balance; }
+.shell-hero p { color: var(--text-muted); max-width: 60ch; margin: 0; }
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space);
+}
+
+.kpi { display: flex; flex-direction: column; gap: 4px; }
+.kpi .kpi-value { font-size: 28px; font-weight: 650; line-height: 1.1; }
+.kpi .kpi-label { font-size: 13px; color: var(--text-muted); }
+.kpi .kpi-delta { font-size: 12.5px; font-weight: 600; }
+.kpi .kpi-delta.up { color: #0a8f3c; }
+.kpi .kpi-delta.down { color: #cf3131; }
+
+table.shell-table { border-collapse: collapse; width: 100%; font-size: 14px; }
+table.shell-table th {
+  text-align: left; font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 600;
+}
+table.shell-table th, table.shell-table td { padding: 9px 12px 9px 0; border-bottom: 1px solid var(--border); }
+table.shell-table td.num, table.shell-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+
+.chart-box { width: 100%; min-height: 220px; }
+.chart-box svg { width: 100%; height: auto; display: block; }
+
+.muted { color: var(--text-muted); }
+.accent { color: var(--accent-text); }
+.shell-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent-text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shell-fade { animation: shell-fade 400ms ease both; }
+  @keyframes shell-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+}
+
+</style>
+  
+
+  <style>
+    :root {
+      --accent: #1d4ed8;
+      --accent-hover: #1e40af;
+      --accent-subtle: #eff6ff;
+      --accent-ring: rgba(29, 78, 216, 0.25);
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Sticky Header */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background-color: #ffffff;
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .brand-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      flex-shrink: 0;
+    }
+
+    .brand-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke-width: 2.2;
+    }
+
+    .brand-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text);
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .brand-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* Main Layout Grid */
+    .main-workspace {
+      display: flex;
+      flex: 1;
+      max-width: 1600px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .catalog-area {
+      flex: 1;
+      min-width: 0;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Filter Bar */
+    .toolbar-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.1rem;
+      height: 1.1rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-ring);
+    }
+
+    .select-wrap select {
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.6rem center;
+    }
+
+    .filter-checkbox {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      user-select: none;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .category-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      max-height: 110px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .chip-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.785rem;
+      font-weight: 500;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .chip-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent-text);
+      background: var(--accent-subtle);
+    }
+
+    .chip-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .chip-count {
+      opacity: 0.85;
+      font-size: 0.72rem;
+      padding: 0.05rem 0.3rem;
+      background: rgba(0, 0, 0, 0.07);
+      border-radius: 9999px;
+    }
+
+    .chip-btn.active .chip-count {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    /* Drop Zone / Empty state */
+    .empty-hero {
+      background: var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: calc(var(--radius) * 1.5);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      transition: all 0.2s ease;
+      margin: 1rem 0;
+    }
+
+    .empty-hero.drag-over {
+      border-color: var(--accent);
+      background: var(--accent-subtle);
+    }
+
+    .empty-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 2rem auto 1.5rem;
+      text-align: left;
+    }
+
+    .step-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .step-num {
+      width: 1.8rem;
+      height: 1.8rem;
+      background: var(--accent-subtle);
+      color: var(--accent-text);
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    /* Progress Banner */
+    .progress-banner {
+      display: none;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem 1.25rem;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .progress-banner.active {
+      display: flex;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.1s linear;
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.75rem;
+      }
+    }
+
+    .plate-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      position: relative;
+    }
+
+    .plate-card:hover {
+      box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .plate-card.has-qty {
+      border: 2px solid var(--accent);
+      background: #fdfefe;
+    }
+
+    .selected-indicator {
+      display: none;
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      z-index: 2;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+
+    .plate-card.has-qty .selected-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .thumb-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: #f8fafc;
+      cursor: zoom-in;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 0.5rem;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      opacity: 0;
+    }
+
+    .thumb-img.loaded {
+      opacity: 1;
+    }
+
+    .thumb-img.thumb-error {
+      opacity: 0.4;
+      filter: grayscale(1);
+    }
+
+    .thumb-wrapper:hover .thumb-img {
+      transform: scale(1.04);
+    }
+
+    .thumb-loading-ph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-size: 0.75rem;
+    }
+
+    .plate-details {
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 0.4rem;
+    }
+
+    .plate-code-line {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .plate-code {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      word-break: break-all;
+    }
+
+    .plate-category-badge {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+      align-self: flex-start;
+    }
+
+    /* Stepper Controls */
+    .qty-stepper {
+      margin-top: auto;
+      padding-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .step-btn {
+      width: 2rem;
+      height: 2rem;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.1s;
+      flex-shrink: 0;
+    }
+
+    .step-btn:hover {
+      background: #f1f5f9;
+      color: var(--accent-text);
+    }
+
+    .step-btn:active {
+      background: #e2e8f0;
+    }
+
+    .step-btn svg {
+      width: 0.9rem;
+      height: 0.9rem;
+      stroke-width: 2.4;
+    }
+
+    .qty-input {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      border: none;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text);
+      font-family: var(--font-mono);
+      background: transparent;
+      padding: 0;
+      outline: none;
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Side / Bottom Order Panel */
+    .order-panel {
+      width: 360px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: var(--header-h);
+      height: calc(100vh - var(--header-h));
+      z-index: 30;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.03);
+    }
+
+    .order-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+    }
+
+    .order-title {
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .order-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .order-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: #fff;
+      transition: border-color 0.15s;
+    }
+
+    .order-item:hover {
+      border-color: #cbd5e1;
+    }
+
+    .order-thumb-mini {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 4px;
+      background: #f8fafc;
+      object-fit: contain;
+      border: 1px solid #f1f5f9;
+      flex-shrink: 0;
+    }
+
+    .order-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .order-item-code {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .order-item-cat {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .order-item-stepper {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #f8fafc;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .order-item-stepper button {
+      border: none;
+      background: transparent;
+      padding: 0.2rem 0.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+    }
+
+    .order-item-stepper button:hover {
+      background: #e2e8f0;
+    }
+
+    .order-item-qty {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      min-width: 1.8rem;
+      text-align: center;
+    }
+
+    .order-item-remove {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 0.25rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .order-item-remove:hover {
+      color: #dc2626;
+      background: #fee2e2;
+    }
+
+    .order-empty-state {
+      margin: auto;
+      text-align: center;
+      color: var(--text-muted);
+      padding: 2rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    .order-empty-icon {
+      width: 3rem;
+      height: 3rem;
+      margin: 0 auto 0.75rem;
+      stroke-width: 1.5;
+      color: #cbd5e1;
+    }
+
+    .order-footer {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--border);
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .order-summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+
+    .order-total-number {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--accent-text);
+      font-family: var(--font-mono);
+    }
+
+    .order-cats-summary {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      background: var(--bg);
+      padding: 0.5rem;
+      border-radius: var(--radius);
+      max-height: 70px;
+      overflow-y: auto;
+    }
+
+    .action-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .btn-macro {
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid var(--accent);
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.15s, transform 0.05s;
+    }
+
+    .btn-macro:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-macro:active {
+      transform: scale(0.99);
+    }
+
+    .btn-secondary-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-outline {
+      flex: 1;
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.6rem;
+      border-radius: var(--radius);
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-outline:hover {
+      background: var(--bg);
+      border-color: #cbd5e1;
+    }
+
+    .btn-outline.text-danger:hover {
+      color: #dc2626;
+      border-color: #fca5a5;
+      background: #fee2e2;
+    }
+
+    /* Restored Notification */
+    .restored-banner {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius);
+      font-size: 0.78rem;
+    }
+
+    /* Modal / Lightbox */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(4px);
+      animation: fadeIn 0.15s ease-out;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: calc(var(--radius) * 1.5);
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.25rem;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text);
+      background: #f1f5f9;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      min-height: 280px;
+    }
+
+    .modal-img {
+      max-width: 100%;
+      max-height: 55vh;
+      object-fit: contain;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      background: #fff;
+    }
+
+    .modal-footer {
+      padding: 0.85rem 1.25rem;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Toast Notification */
+    .toast-box {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #0f172a;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toast-box.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .toast-icon {
+      color: #22c55e;
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+
+    /* Mobile drawer toggle button & styles */
+    .mobile-cart-toggle {
+      display: none;
+    }
+
+    @media (max-width: 960px) {
+      .order-panel {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        width: 100%;
+        height: 75vh;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        border-radius: 16px 16px 0 0;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 60;
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+      }
+
+      .order-panel.drawer-open {
+        transform: translateY(0);
+      }
+
+      .mobile-cart-toggle {
+        display: inline-flex;
+        position: relative;
+      }
+
+      .order-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 55;
+      }
+
+      .order-backdrop.active {
+        display: block;
+      }
+    }
+
+    .hidden-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    .badge-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.1rem 0.45rem;
+      border-radius: 9999px;
+      margin-left: 0.25rem;
+    }
+
+    .privacy-notice {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Print styles */
+    @media print {
+      .app-header, .toolbar-box, .order-panel, .header-actions, .step-btn, .selected-indicator, .empty-hero {
+        display: none !important;
+      }
+      body {
+        background: #fff;
+      }
+      .cards-grid {
+        display: block;
+      }
+      .plate-card {
+        page-break-inside: avoid;
+        display: inline-block;
+        width: 30%;
+        margin: 1%;
+        border: 1px solid #ccc;
+      }
+    }
+
+    /* ===== Catálogo por cliente: seções por categoria ===== */
+    :root { --header-h: 64px; }
+    html { scroll-behavior: smooth; }
+
+    .brand-home {
+      display: flex; align-items: center; gap: 0.75rem; min-width: 0;
+      background: none; border: 0; padding: 0.25rem 0.4rem; margin: -0.25rem -0.4rem;
+      border-radius: var(--radius); cursor: pointer; text-align: left; color: inherit; font: inherit;
+    }
+    .brand-home:hover { background: var(--accent-subtle); }
+    .brand-home:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .brand-kicker { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+
+    .chip-btn .chip-dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--cat, var(--accent)); flex-shrink: 0; }
+    .chip-btn.active { background: var(--cat, var(--accent)); border-color: var(--cat, var(--accent)); }
+    .chip-btn.active .chip-dot { background: #fff; }
+
+    .catalog-sections { display: flex; flex-direction: column; gap: 1.75rem; }
+
+    .cat-section { scroll-margin-top: calc(var(--header-h) + 0.5rem); }
+
+    .cat-header {
+      position: sticky; top: var(--header-h); z-index: 20;
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 1rem; margin-bottom: 0.85rem;
+      background: var(--cat); color: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px -2px rgba(0,0,0,0.18);
+    }
+    .cat-header h2 { margin: 0; font-size: 1rem; font-weight: 750; letter-spacing: 0.01em; text-transform: uppercase; }
+    .cat-header .cat-count { margin-left: auto; font-size: 0.75rem; font-weight: 600; background: rgba(255,255,255,0.22); padding: 0.15rem 0.55rem; border-radius: 9999px; white-space: nowrap; }
+    .cat-header .cat-selected { font-size: 0.75rem; font-weight: 600; background: #fff; color: var(--cat); padding: 0.15rem 0.55rem; border-radius: 9999px; white-space: nowrap; }
+    .cat-header .cat-selected:empty { display: none; }
+
+    .plate-card { border-top: 4px solid var(--cat, var(--border)); }
+    .plate-card.has-qty { border: 2px solid var(--cat, var(--accent)); border-top-width: 4px; }
+    .plate-card .selected-indicator { background: var(--cat, var(--accent)); }
+    .plate-category-badge { color: var(--cat, var(--text-muted)); }
+
+    .order-item-cat { display: flex; align-items: center; gap: 0.3rem; }
+    .order-item-cat::before { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--cat, var(--text-muted)); flex-shrink: 0; }
+
+    .state-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: calc(var(--radius) * 1.5);
+      padding: 3rem 1.5rem; text-align: center; margin: 1rem 0;
+    }
+    .state-box h2 { font-size: 1.2rem; font-weight: 700; margin: 0 0 0.4rem; }
+    .state-box p { color: var(--text-muted); font-size: 0.9rem; max-width: 520px; margin: 0 auto; }
+    .spinner { width: 2rem; height: 2rem; border: 3px solid #e2e8f0; border-top-color: var(--accent); border-radius: 50%; margin: 0 auto 1rem; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media print { .cat-header { position: static; } }
+  </style>
+<body>
+
+  <!-- Header -->
+  <header class="app-header" id="appHeader">
+    <div class="header-inner">
+      <div class="brand-group">
+        <!-- Clicar no nome do cliente sempre volta para o início do catálogo dele -->
+        <button type="button" class="brand-home" id="btnHome" title="Voltar ao início do meu catálogo">
+          <span class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+              <path d="M7 7h10M7 12h6M7 17h10"></path>
+            </svg>
+          </span>
+          <span style="min-width:0;">
+            <span class="brand-kicker">Catálogo de Placas</span>
+            <span class="brand-title" id="clientTitle" style="display:block;">Carregando...</span>
+            <span class="brand-meta">
+              <span id="catalogStat">0 itens</span>
+              <span>•</span>
+              <span id="filterStat">0 visíveis</span>
+            </span>
+          </span>
+        </button>
+      </div>
+
+      <div class="header-actions">
+        <button type="button" class="btn btn-outline mobile-cart-toggle" id="btnToggleMobileCart" aria-label="Abrir Pedido">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="8" cy="21" r="1"></circle>
+            <circle cx="19" cy="21" r="1"></circle>
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+          </svg>
+          <span class="badge-count" id="mobileCartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Backdrop -->
+  <div class="order-backdrop" id="orderBackdrop"></div>
+
+  <!-- Workspace Container -->
+  <div class="main-workspace">
+    <main class="catalog-area">
+      <!-- Restored Session Warning -->
+      <div class="restored-banner" id="restoredAlert" role="status">
+        <div style="display:flex; align-items:center; gap:0.4rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>Quantidades do seu pedido anterior foram restauradas do navegador.</span>
+        </div>
+        <button type="button" class="btn-outline" id="btnDismissRestored" style="padding: 0.2rem 0.5rem; font-size: 0.72rem;">Dispensar</button>
+      </div>
+
+      <!-- Toolbar -->
+      <section class="toolbar-box" id="toolbarBox" aria-label="Busca e categorias" style="display:none;">
+        <div class="toolbar-row">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="search" id="searchInput" class="search-input" placeholder="Buscar por código ou categoria..." autocomplete="off">
+          </div>
+
+          <label class="filter-checkbox">
+            <input type="checkbox" id="onlySelectedCheck">
+            <span>Mostrar só com quantidade</span>
+          </label>
+        </div>
+
+        <!-- Atalhos para as categorias (rolam até a seção) -->
+        <nav class="category-chips" id="categoryChips" aria-label="Ir para a categoria"></nav>
+      </section>
+
+      <!-- Loading / error states -->
+      <section class="state-box" id="stateBox">
+        <div class="spinner" id="stateSpinner"></div>
+        <h2 id="stateTitle">Carregando catálogo...</h2>
+        <p id="stateText">Buscando as placas disponíveis para você.</p>
+      </section>
+
+      <!-- Seções por categoria -->
+      <div class="catalog-sections" id="catalogSections"></div>
+
+      <div id="noResults" style="display:none; text-align:center; padding: 3rem 1rem; color: var(--text-muted);">
+        <p style="font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem;">Nenhuma placa encontrada</p>
+        <p style="font-size: 0.85rem;">Tente outro termo de busca.</p>
+      </div>
+    </main>
+
+
+    <!-- Side Order Panel -->
+    <aside class="order-panel" id="orderPanel" aria-label="Painel do Pedido">
+      <div class="order-header">
+        <div class="order-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+            <path d="M3 6h18"></path>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span>Pedido de Produção</span>
+          <span class="badge-count" id="orderBadgeCount">0</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btnCloseMobileCart" aria-label="Fechar painel do pedido" style="display: none;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Items List -->
+      <div class="order-list" id="orderList"><div class="order-empty-state" id="orderEmptyState" style="display: block;">
+          <svg class="order-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="8" cy="21" r="1"></circle>
+            <circle cx="19" cy="21" r="1"></circle>
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+          </svg>
+          <p>Nenhuma placa selecionada ainda.</p>
+          <span style="font-size: 0.75rem;">Defina a quantidade de qualquer placa para adicioná-la aqui.</span>
+        </div></div>
+
+      <!-- Footer / Summary -->
+      <div class="order-footer">
+        <div class="order-summary-row">
+          <span style="color: var(--text-muted);">Modelos distintos:</span>
+          <strong id="summaryDistinct">0</strong>
+        </div>
+        <div class="order-summary-row">
+          <span style="font-weight: 600;">Total de Placas:</span>
+          <span class="order-total-number" id="summaryTotal">0</span>
+        </div>
+
+        <div class="order-cats-summary" id="categoryBreakdown" title="Distribuição por categoria">Nenhuma placa no pedido</div>
+
+        <div class="action-btn-group">
+          <button type="button" class="btn-macro" id="btnCopyMacro" title="Copiar para área de transferência no padrão CODIGO;QTD">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+            </svg>
+            <span>Copiar lista (CorelDRAW)</span>
+          </button>
+
+          <div class="btn-secondary-row">
+            <button type="button" class="btn-outline" id="btnDownloadCsv" title="Baixar planilha CSV com CODIGO;QTD;CATEGORIA">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Baixar CSV</span>
+            </button>
+            <button type="button" class="btn-outline text-danger" id="btnClearOrder" title="Zerar todas as quantidades">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 6h18"></path>
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+              </svg>
+              <span>Limpar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="modal-backdrop" id="imageModal" role="dialog" aria-modal="true" aria-labelledby="modalCode">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <span class="modal-title" id="modalCode" style="font-family: var(--font-mono); font-weight:800; font-size:1.1rem;">CODIGO</span>
+          <span id="modalCat" style="font-size: 0.78rem; color: var(--text-muted); margin-left: 0.5rem; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px;">Categoria</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="modalCloseBtn" aria-label="Fechar visualização">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" alt="" id="modalImg" class="modal-img">
+      </div>
+      <div class="modal-footer">
+        <div style="font-size:0.8rem; color:var(--text-muted);">
+          Use para conferir traçado e detalhes visuais da placa.
+        </div>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span style="font-size:0.85rem; font-weight:600;">Quantidade:</span>
+          <div class="qty-stepper" style="width: 110px; margin: 0;">
+            <button type="button" class="step-btn" id="modalQtyMinus" aria-label="Diminuir">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <input type="number" id="modalQtyInput" class="qty-input" min="0" value="0">
+            <button type="button" class="step-btn" id="modalQtyPlus" aria-label="Aumentar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-box" id="toastBox" role="status" aria-live="polite">
+    <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toastMsg">Lista copiada! Cole no CorelDRAW e rode a macro.</span>
+  </div>
+
+  <script>
+    /* =====================================================================
+       CATÁLOGO DE PLACAS — VERSÃO ONLINE (GitHub Pages), UMA PASTA POR CLIENTE
+       ---------------------------------------------------------------------
+       Estrutura esperada no repositório:
+         index.html
+         clientes/
+           nome-do-cliente/
+             01 - Salvamento/        <- cada subpasta vira uma categoria
+               E001.jpg               <- nome do arquivo = código da placa
+             02 - Combate a Incendio/
+               F001.jpg
+       Link do cliente:  https://SEU-USUARIO.github.io/SEU-REPOSITORIO/?cliente=nome-do-cliente
+       ===================================================================== */
+    const CONFIG = {
+      // Preenchidos automaticamente quando a página está no GitHub Pages.
+      // Só altere se usar um domínio próprio.
+      owner: "",
+      repo: "",
+      branch: "main",
+      pastaClientes: "clientes",
+      // Por quanto tempo a lista de arquivos fica guardada no navegador (minutos)
+      cacheMinutos: 10
+    };
+
+    const IMAGE_EXT_PRIORITY = { jpg: 4, jpeg: 3, png: 2, webp: 1 };
+    const LAST_CLIENT_KEY = "catalogo_placas_ultimo_cliente";
+
+    // Cores das categorias: primeiro por palavra-chave, depois por uma paleta fixa
+    const CATEGORY_COLOR_RULES = [
+      [/salvament|emerg|rota|fuga|saida|socorr|abandono/i, "#15803d"],
+      [/controle/i, "#c2410c"],
+      [/inc[eê]ndio|combate|extintor|hidrante|fogo/i, "#dc2626"],
+      [/proib/i, "#b91c1c"],
+      [/alerta|perigo|cuidado|aten[cç]/i, "#b45309"],
+      [/obrigat|epi|seguran/i, "#1d4ed8"],
+      [/n[aá]utic|mar[ií]tim|naval|embarca/i, "#0e7490"],
+      [/tr[aâ]nsito|estacion|garagem/i, "#334155"]
+    ];
+    const CATEGORY_PALETTE = ["#4f46e5", "#0f766e", "#a21caf", "#9a3412", "#0369a1", "#4d7c0f", "#be185d", "#6d28d9"];
+
+    // Application state
+    const state = {
+      client: "",
+      items: new Map(),      // code -> { code, category, catKey, color, url }
+      categories: [],        // [{ key, name, color, codes: [] }]
+      order: new Map(),      // code -> quantity
+      searchQuery: "",
+      onlySelected: false,
+      activeModalCode: null,
+      observer: null,
+      storageKey: "catalogo_placas_order_v2"
+    };
+
+    // DOM References
+    const $ = (id) => document.getElementById(id);
+    const appHeader = $("appHeader");
+    const btnHome = $("btnHome");
+    const clientTitle = $("clientTitle");
+    const toolbarBox = $("toolbarBox");
+    const stateBox = $("stateBox");
+    const stateSpinner = $("stateSpinner");
+    const stateTitle = $("stateTitle");
+    const stateText = $("stateText");
+    const catalogSections = $("catalogSections");
+    const noResults = $("noResults");
+    const categoryChips = $("categoryChips");
+    const searchInput = $("searchInput");
+    const onlySelectedCheck = $("onlySelectedCheck");
+
+    const orderList = $("orderList");
+    const orderEmptyState = $("orderEmptyState");
+    const orderBadgeCount = $("orderBadgeCount");
+    const mobileCartCount = $("mobileCartCount");
+    const summaryDistinct = $("summaryDistinct");
+    const summaryTotal = $("summaryTotal");
+    const categoryBreakdown = $("categoryBreakdown");
+    const btnCopyMacro = $("btnCopyMacro");
+    const btnDownloadCsv = $("btnDownloadCsv");
+    const btnClearOrder = $("btnClearOrder");
+
+    const orderPanel = $("orderPanel");
+    const btnToggleMobileCart = $("btnToggleMobileCart");
+    const btnCloseMobileCart = $("btnCloseMobileCart");
+    const orderBackdrop = $("orderBackdrop");
+
+    const imageModal = $("imageModal");
+    const modalCloseBtn = $("modalCloseBtn");
+    const modalCode = $("modalCode");
+    const modalCat = $("modalCat");
+    const modalImg = $("modalImg");
+    const modalQtyInput = $("modalQtyInput");
+    const modalQtyMinus = $("modalQtyMinus");
+    const modalQtyPlus = $("modalQtyPlus");
+
+    const toastBox = $("toastBox");
+    const toastMsg = $("toastMsg");
+    const restoredAlert = $("restoredAlert");
+    const btnDismissRestored = $("btnDismissRestored");
+    const catalogStat = $("catalogStat");
+    const filterStat = $("filterStat");
+
+    /* =====================================================================
+       INITIALIZATION
+       ===================================================================== */
+    document.addEventListener("DOMContentLoaded", () => {
+      updateHeaderHeight();
+      window.addEventListener("resize", updateHeaderHeight);
+      setupIntersectionObserver();
+      initEventListeners();
+      start();
+    });
+
+    function updateHeaderHeight() {
+      document.documentElement.style.setProperty("--header-h", appHeader.offsetHeight + "px");
+    }
+
+    function detectRepo() {
+      if (CONFIG.owner && CONFIG.repo) return { owner: CONFIG.owner, repo: CONFIG.repo };
+      const host = location.hostname.toLowerCase();
+      if (host.endsWith(".github.io")) {
+        const owner = host.replace(".github.io", "");
+        const firstSeg = location.pathname.split("/").filter(Boolean)[0];
+        // Repositório "usuario.github.io" fica na raiz; os demais ficam em /nome-do-repo/
+        const repo = firstSeg && !firstSeg.includes(".") ? firstSeg : host;
+        return { owner, repo };
+      }
+      return null;
+    }
+
+    function getClientFromUrl() {
+      const params = new URLSearchParams(location.search);
+      return (params.get("cliente") || params.get("c") || "").trim();
+    }
+
+    function setUrlClient(client) {
+      const url = new URL(location.href);
+      url.searchParams.delete("c");
+      url.searchParams.set("cliente", client);
+      url.hash = "";
+      history.replaceState(null, "", url.toString());
+    }
+
+    async function start() {
+      let client = getClientFromUrl();
+      if (!client) {
+        try { client = localStorage.getItem(LAST_CLIENT_KEY) || ""; } catch (e) {}
+        if (client) setUrlClient(client);
+      }
+
+      if (!client) {
+        clientTitle.textContent = "Catálogo de Placas";
+        showState("info", "Abra o link que você recebeu",
+          "Este catálogo é personalizado. Use o link enviado para você — ele já abre direto nas suas placas.");
+        return;
+      }
+
+      state.client = client;
+      state.storageKey = "catalogo_placas_order_v2__" + client.toLowerCase();
+      clientTitle.textContent = prettifyName(client);
+      document.title = `Catálogo de Placas — ${prettifyName(client)}`;
+
+      const repo = detectRepo();
+      if (!repo) {
+        showState("error", "Catálogo não configurado",
+          "Esta página precisa estar publicada no GitHub Pages (ou ter owner/repo preenchidos no CONFIG).");
+        return;
+      }
+
+      try {
+        const paths = await fetchRepoImagePaths(repo);
+        buildCatalog(paths, client);
+      } catch (err) {
+        console.error(err);
+        if (err && err.rateLimited) {
+          showState("error", "Muitos acessos em pouco tempo",
+            "O GitHub limitou temporariamente as consultas deste computador. Aguarde alguns minutos e abra o link de novo.");
+        } else {
+          showState("error", "Não foi possível carregar o catálogo",
+            "Verifique sua conexão com a internet e abra o link novamente.");
+        }
+        return;
+      }
+
+      if (state.items.size === 0) {
+        showState("error", "Nenhuma placa encontrada",
+          `Não há placas na pasta deste cliente ("${client}"). Confira se o link está correto.`);
+        return;
+      }
+
+      try { localStorage.setItem(LAST_CLIENT_KEY, client); } catch (e) {}
+
+      restoreSavedOrder();
+      stateBox.style.display = "none";
+      toolbarBox.style.display = "";
+      renderCategoryChips();
+      renderCatalog();
+      renderOrder();
+      updateHeaderHeight();
+    }
+
+    function showState(kind, title, text) {
+      stateBox.style.display = "";
+      stateSpinner.style.display = kind === "loading" ? "" : "none";
+      stateTitle.textContent = title;
+      stateText.textContent = text;
+      toolbarBox.style.display = "none";
+      catalogSections.innerHTML = "";
+    }
+
+    /* =====================================================================
+       LOADING FILE LIST FROM GITHUB (no key needed for public repos)
+       ===================================================================== */
+    async function fetchRepoImagePaths(repo) {
+      const cacheKey = `catalogo_tree__${repo.owner}/${repo.repo}`;
+      try {
+        const cached = JSON.parse(sessionStorage.getItem(cacheKey) || "null");
+        if (cached && Date.now() - cached.t < CONFIG.cacheMinutos * 60000) return cached.paths;
+      } catch (e) {}
+
+      let res = null;
+      for (const branch of [CONFIG.branch, "main", "master"].filter((b, i, a) => b && a.indexOf(b) === i)) {
+        res = await fetch(`https://api.github.com/repos/${repo.owner}/${repo.repo}/git/trees/${encodeURIComponent(branch)}?recursive=1`, {
+          headers: { Accept: "application/vnd.github+json" }
+        });
+        if (res.ok) break;
+        if (res.status === 403 || res.status === 429) {
+          const e = new Error("rate limited"); e.rateLimited = true; throw e;
+        }
+      }
+      if (!res || !res.ok) throw new Error("GitHub API error " + (res && res.status));
+
+      const data = await res.json();
+      const prefix = CONFIG.pastaClientes + "/";
+      const paths = (data.tree || [])
+        .filter(n => n.type === "blob" && n.path.startsWith(prefix) && isAcceptedImage(n.path))
+        .map(n => n.path);
+
+      try { sessionStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), paths })); } catch (e) {}
+      return paths;
+    }
+
+    function buildCatalog(paths, client) {
+      const clientPrefix = (CONFIG.pastaClientes + "/" + client + "/").toLowerCase();
+      const items = new Map();
+      const catMap = new Map();
+
+      for (const path of paths) {
+        if (!path.toLowerCase().startsWith(clientPrefix)) continue;
+        const rel = path.slice(clientPrefix.length);
+        const parts = rel.split("/");
+        if (parts.some(p => p.startsWith(".") || p.startsWith("_"))) continue;
+
+        const fileName = parts[parts.length - 1];
+        const catKey = parts.length > 1 ? parts[0] : "Geral";
+        const code = sanitizeCode(fileName);
+        if (!code) continue;
+        const priority = IMAGE_EXT_PRIORITY[getFileExtension(fileName)] || 0;
+
+        const existing = items.get(code);
+        if (existing && existing.priority >= priority) continue;
+
+        items.set(code, {
+          code,
+          catKey,
+          category: prettifyCategory(catKey),
+          url: path.split("/").map(encodeURIComponent).join("/"),
+          priority
+        });
+        if (!catMap.has(catKey)) catMap.set(catKey, { key: catKey, name: prettifyCategory(catKey) });
+      }
+
+      // Categorias em ordem de pasta (use "01 - ", "02 - " no nome para controlar a ordem)
+      const cats = Array.from(catMap.values()).sort((a, b) => a.key.localeCompare(b.key, "pt-BR", { numeric: true }));
+      cats.forEach((cat, i) => {
+        cat.color = pickCategoryColor(cat.name, i);
+        cat.codes = [];
+      });
+      const catByKey = new Map(cats.map(c => [c.key, c]));
+
+      const sortedItems = Array.from(items.values()).sort((a, b) => a.code.localeCompare(b.code, "pt-BR", { numeric: true }));
+      for (const item of sortedItems) {
+        const cat = catByKey.get(item.catKey);
+        item.color = cat.color;
+        cat.codes.push(item.code);
+      }
+
+      state.items = new Map(sortedItems.map(i => [i.code, i]));
+      state.categories = cats;
+    }
+
+    function pickCategoryColor(name, index) {
+      const plain = name.normalize("NFD").replace(/[̀-ͯ]/g, "");
+      for (const [re, color] of CATEGORY_COLOR_RULES) {
+        if (re.test(name) || re.test(plain)) return color;
+      }
+      return CATEGORY_PALETTE[index % CATEGORY_PALETTE.length];
+    }
+
+    function prettifyCategory(folder) {
+      // "01 - Salvamento" -> "Salvamento"; "02_combate-a-incendio" -> "Combate a incendio"
+      const name = folder.replace(/^\s*\d+\s*[-_.)]?\s*/, "").replace(/[_]+/g, " ").trim() || folder;
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+
+    function prettifyName(slug) {
+      return slug.replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim()
+        .replace(/(^|\s)\S/g, s => s.toUpperCase());
+    }
+
+    function getFileExtension(filename) {
+      const idx = filename.lastIndexOf(".");
+      return idx !== -1 ? filename.slice(idx + 1).toLowerCase() : "";
+    }
+
+    function sanitizeCode(filename) {
+      const idx = filename.lastIndexOf(".");
+      return (idx !== -1 ? filename.substring(0, idx) : filename).trim();
+    }
+
+    function isAcceptedImage(name) {
+      return getFileExtension(name) in IMAGE_EXT_PRIORITY;
+    }
+
+    /* =====================================================================
+       EVENTS
+       ===================================================================== */
+    function setupIntersectionObserver() {
+      if (!("IntersectionObserver" in window)) return;
+      state.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const img = entry.target;
+          const src = img.dataset.src;
+          if (src) {
+            img.src = src;
+            img.onload = () => {
+              img.classList.add("loaded");
+              const ph = img.parentElement.querySelector(".thumb-loading-ph");
+              if (ph) ph.style.display = "none";
+            };
+            img.onerror = () => {
+              img.classList.add("thumb-error");
+              const ph = img.parentElement.querySelector(".thumb-loading-ph");
+              if (ph) ph.textContent = "Sem miniatura";
+            };
+            delete img.dataset.src;
+          }
+          state.observer.unobserve(img);
+        });
+      }, { root: null, rootMargin: "400px 0px", threshold: 0.01 });
+    }
+
+    function initEventListeners() {
+      // Nome do cliente = "voltar ao início do meu catálogo"
+      btnHome.addEventListener("click", goHome);
+
+      searchInput.addEventListener("input", (e) => {
+        state.searchQuery = e.target.value.trim().toLowerCase();
+        renderCatalog();
+      });
+
+      onlySelectedCheck.addEventListener("change", (e) => {
+        state.onlySelected = e.target.checked;
+        renderCatalog();
+      });
+
+      btnCopyMacro.addEventListener("click", copyMacroList);
+      btnDownloadCsv.addEventListener("click", downloadCsv);
+      btnClearOrder.addEventListener("click", clearOrderConfirm);
+
+      btnToggleMobileCart.addEventListener("click", openMobileDrawer);
+      btnCloseMobileCart.addEventListener("click", closeMobileDrawer);
+      orderBackdrop.addEventListener("click", closeMobileDrawer);
+
+      modalCloseBtn.addEventListener("click", closeModal);
+      imageModal.addEventListener("click", (e) => { if (e.target === imageModal) closeModal(); });
+      window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+
+      modalQtyMinus.addEventListener("click", () => {
+        if (!state.activeModalCode) return;
+        const current = state.order.get(state.activeModalCode) || 0;
+        setQuantity(state.activeModalCode, Math.max(0, current - 1));
+      });
+      modalQtyPlus.addEventListener("click", () => {
+        if (!state.activeModalCode) return;
+        const current = state.order.get(state.activeModalCode) || 0;
+        setQuantity(state.activeModalCode, current + 1);
+      });
+      modalQtyInput.addEventListener("change", (e) => {
+        if (!state.activeModalCode) return;
+        const val = parseInt(e.target.value, 10);
+        setQuantity(state.activeModalCode, isNaN(val) ? 0 : Math.max(0, val));
+      });
+
+      btnDismissRestored.addEventListener("click", () => { restoredAlert.style.display = "none"; });
+    }
+
+    function goHome() {
+      closeModal();
+      closeMobileDrawer();
+      if (state.client) setUrlClient(state.client);
+      if (state.searchQuery || state.onlySelected) {
+        state.searchQuery = "";
+        state.onlySelected = false;
+        searchInput.value = "";
+        onlySelectedCheck.checked = false;
+        renderCatalog();
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* =====================================================================
+       RENDER: CATEGORY SHORTCUTS + SECTIONS
+       ===================================================================== */
+    function renderCategoryChips() {
+      categoryChips.innerHTML = "";
+      state.categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip-btn";
+        btn.dataset.cat = cat.key;
+        btn.style.setProperty("--cat", cat.color);
+        btn.innerHTML = `<span class="chip-dot"></span>${escapeHtml(cat.name)} <span class="chip-count">${cat.codes.length}</span>`;
+        btn.onclick = () => {
+          const section = document.getElementById(sectionId(cat.key));
+          if (section && section.style.display !== "none") section.scrollIntoView({ behavior: "smooth", block: "start" });
+        };
+        categoryChips.appendChild(btn);
+      });
+    }
+
+    function sectionId(catKey) {
+      return "cat-" + catKey.normalize("NFD").replace(/[^\w]+/g, "-").toLowerCase();
+    }
+
+    function itemMatches(item) {
+      const q = state.searchQuery;
+      if (q && !item.code.toLowerCase().includes(q) && !item.category.toLowerCase().includes(q)) return false;
+      if (state.onlySelected && !(state.order.get(item.code) > 0)) return false;
+      return true;
+    }
+
+    function renderCatalog() {
+      const frag = document.createDocumentFragment();
+      let visible = 0;
+
+      state.categories.forEach(cat => {
+        const items = cat.codes.map(c => state.items.get(c)).filter(itemMatches);
+        visible += items.length;
+
+        const section = document.createElement("section");
+        section.className = "cat-section";
+        section.id = sectionId(cat.key);
+        section.style.setProperty("--cat", cat.color);
+        if (!items.length) section.style.display = "none";
+
+        section.innerHTML = `
+          <div class="cat-header">
+            <h2>${escapeHtml(cat.name)}</h2>
+            <span class="cat-selected" data-cat-selected></span>
+            <span class="cat-count">${items.length} ${items.length === 1 ? "placa" : "placas"}</span>
+          </div>
+          <div class="cards-grid"></div>`;
+        const grid = section.querySelector(".cards-grid");
+        items.forEach(item => grid.appendChild(createPlateCard(item, state.order.get(item.code) || 0)));
+        frag.appendChild(section);
+      });
+
+      catalogSections.innerHTML = "";
+      catalogSections.appendChild(frag);
+
+      catalogStat.textContent = `${state.items.size} ${state.items.size === 1 ? "placa" : "placas"}`;
+      filterStat.textContent = `${visible} visíveis`;
+      noResults.style.display = visible === 0 && state.items.size > 0 ? "block" : "none";
+
+      // Atalhos de categoria: esconde os que ficaram sem resultado
+      categoryChips.querySelectorAll(".chip-btn").forEach(btn => {
+        const sec = document.getElementById(sectionId(btn.dataset.cat));
+        btn.style.display = sec && sec.style.display !== "none" ? "" : "none";
+      });
+
+      updateSectionSelectedCounts();
+
+      if (state.observer) {
+        catalogSections.querySelectorAll("img[data-src]").forEach(img => state.observer.observe(img));
+      } else {
+        catalogSections.querySelectorAll("img[data-src]").forEach(img => {
+          img.src = img.dataset.src; img.classList.add("loaded");
+        });
+      }
+    }
+
+    function updateSectionSelectedCounts() {
+      state.categories.forEach(cat => {
+        const sec = document.getElementById(sectionId(cat.key));
+        if (!sec) return;
+        const total = cat.codes.reduce((s, c) => s + (state.order.get(c) || 0), 0);
+        const el = sec.querySelector("[data-cat-selected]");
+        if (el) el.textContent = total > 0 ? `${total} no pedido` : "";
+      });
+    }
+
+    function createPlateCard(item, qty) {
+      const card = document.createElement("article");
+      card.className = `plate-card ${qty > 0 ? "has-qty" : ""}`;
+      card.dataset.code = item.code;
+      card.style.setProperty("--cat", item.color);
+
+      card.innerHTML = `
+        <div class="selected-indicator">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span class="indicator-qty">${qty}</span>
+        </div>
+        <div class="thumb-wrapper" title="Clique para ampliar" role="button" tabindex="0">
+          <div class="thumb-loading-ph">Carregando...</div>
+          <img class="thumb-img" data-src="${escapeHtml(item.url)}" alt="Placa ${escapeHtml(item.code)}">
+        </div>
+        <div class="plate-details">
+          <div class="plate-code-line">
+            <span class="plate-code">${escapeHtml(item.code)}</span>
+          </div>
+          <span class="plate-category-badge" title="${escapeHtml(item.category)}">${escapeHtml(item.category)}</span>
+          <div class="qty-stepper">
+            <button type="button" class="step-btn btn-minus" aria-label="Diminuir quantidade de ${escapeHtml(item.code)}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <input type="number" class="qty-input" min="0" value="${qty}" aria-label="Quantidade para ${escapeHtml(item.code)}">
+            <button type="button" class="step-btn btn-plus" aria-label="Aumentar quantidade de ${escapeHtml(item.code)}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+          </div>
+        </div>
+      `;
+
+      const thumbWrap = card.querySelector(".thumb-wrapper");
+      thumbWrap.addEventListener("click", () => openModal(item.code));
+      thumbWrap.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(item.code); }
+      });
+
+      const input = card.querySelector(".qty-input");
+      card.querySelector(".btn-minus").addEventListener("click", () => {
+        setQuantity(item.code, Math.max(0, (state.order.get(item.code) || 0) - 1));
+      });
+      card.querySelector(".btn-plus").addEventListener("click", () => {
+        setQuantity(item.code, (state.order.get(item.code) || 0) + 1);
+      });
+      input.addEventListener("change", (e) => {
+        const val = parseInt(e.target.value, 10);
+        setQuantity(item.code, isNaN(val) ? 0 : Math.max(0, val));
+      });
+      input.addEventListener("wheel", (e) => {
+        if (document.activeElement !== input) return; // não atrapalha a rolagem da página
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 1 : -1;
+        setQuantity(item.code, Math.max(0, (state.order.get(item.code) || 0) + delta));
+      }, { passive: false });
+
+      return card;
+    }
+
+    /* =====================================================================
+       QUANTITY MANAGEMENT & PERSISTENCE
+       ===================================================================== */
+    function setQuantity(code, qty) {
+      if (qty <= 0) state.order.delete(code);
+      else state.order.set(code, qty);
+
+      const card = catalogSections.querySelector(`.plate-card[data-code="${CSS.escape(code)}"]`);
+      if (card) {
+        const input = card.querySelector(".qty-input");
+        const qtyNum = card.querySelector(".indicator-qty");
+        if (input) input.value = qty;
+        card.classList.toggle("has-qty", qty > 0);
+        if (qtyNum && qty > 0) qtyNum.textContent = qty;
+      }
+
+      if (state.activeModalCode === code) modalQtyInput.value = Math.max(0, qty);
+
+      persistOrder();
+      renderOrder();
+      updateSectionSelectedCounts();
+
+      if (state.onlySelected && qty <= 0) renderCatalog();
+    }
+
+    // Pedido sempre na ordem do catálogo (categoria, depois código)
+    function orderedEntries() {
+      const entries = [];
+      state.categories.forEach(cat => cat.codes.forEach(code => {
+        const q = state.order.get(code);
+        if (q > 0) entries.push([code, q]);
+      }));
+      // Códigos salvos que não existem mais no catálogo vão no fim
+      state.order.forEach((q, code) => { if (!state.items.has(code) && q > 0) entries.push([code, q]); });
+      return entries;
+    }
+
+    function renderOrder() {
+      const orderEntries = orderedEntries();
+      const distinctCount = orderEntries.length;
+
+      let totalPlates = 0;
+      const catCount = new Map();
+      orderEntries.forEach(([code, qty]) => {
+        totalPlates += qty;
+        const item = state.items.get(code);
+        const cat = item ? item.category : "Outros";
+        catCount.set(cat, (catCount.get(cat) || 0) + qty);
+      });
+
+      orderBadgeCount.textContent = totalPlates;
+      mobileCartCount.textContent = totalPlates;
+      summaryDistinct.textContent = distinctCount;
+      summaryTotal.textContent = totalPlates;
+
+      if (catCount.size > 0) {
+        const parts = [];
+        catCount.forEach((q, c) => parts.push(`<strong>${escapeHtml(c)}:</strong> ${q}`));
+        categoryBreakdown.innerHTML = parts.join(" &nbsp;|&nbsp; ");
+      } else {
+        categoryBreakdown.textContent = "Nenhuma placa no pedido";
+      }
+
+      orderList.innerHTML = "";
+      if (distinctCount === 0) {
+        orderList.appendChild(orderEmptyState);
+        orderEmptyState.style.display = "block";
+        return;
+      }
+      orderEmptyState.style.display = "none";
+
+      const frag = document.createDocumentFragment();
+      orderEntries.forEach(([code, qty]) => {
+        const item = state.items.get(code) || { code, category: "Não está mais no catálogo", url: "", color: "#94a3b8" };
+        const row = document.createElement("div");
+        row.className = "order-item";
+        row.style.setProperty("--cat", item.color);
+        row.innerHTML = `
+          <img class="order-thumb-mini" src="${item.url ? escapeHtml(item.url) : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'/%3E"}" alt="" loading="lazy">
+          <div class="order-item-info">
+            <div class="order-item-code">${escapeHtml(code)}</div>
+            <div class="order-item-cat">${escapeHtml(item.category)}</div>
+          </div>
+          <div class="order-item-stepper">
+            <button type="button" class="btn-order-minus" aria-label="Diminuir">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <span class="order-item-qty">${qty}</span>
+            <button type="button" class="btn-order-plus" aria-label="Aumentar">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+          </div>
+          <button type="button" class="order-item-remove" title="Remover do pedido" aria-label="Remover ${escapeHtml(code)}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18"></path>
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+            </svg>
+          </button>
+        `;
+        row.querySelector(".btn-order-minus").onclick = () => setQuantity(code, Math.max(0, qty - 1));
+        row.querySelector(".btn-order-plus").onclick = () => setQuantity(code, qty + 1);
+        row.querySelector(".order-item-remove").onclick = () => setQuantity(code, 0);
+        frag.appendChild(row);
+      });
+      orderList.appendChild(frag);
+    }
+
+    function persistOrder() {
+      try {
+        localStorage.setItem(state.storageKey, JSON.stringify(Object.fromEntries(state.order.entries())));
+      } catch (err) {
+        console.warn("Falha ao salvar no localStorage", err);
+      }
+    }
+
+    function restoreSavedOrder() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(state.storageKey) || "null");
+        if (!parsed || typeof parsed !== "object") return;
+        let count = 0;
+        for (const [k, v] of Object.entries(parsed)) {
+          const num = parseInt(v, 10);
+          if (num > 0) { state.order.set(k, num); count++; }
+        }
+        if (count > 0) restoredAlert.style.display = "flex";
+      } catch (err) {
+        console.warn("Falha ao recuperar pedido salvo", err);
+      }
+    }
+
+    function clearOrderConfirm() {
+      if (state.order.size === 0) return;
+      if (confirm(`Tem certeza que deseja zerar todas as quantidades deste pedido (${state.order.size} modelos)?`)) {
+        state.order.clear();
+        persistOrder();
+        renderCatalog();
+        renderOrder();
+        showToast("Pedido limpo com sucesso.");
+      }
+    }
+
+    /* =====================================================================
+       MACRO EXPORT & CSV
+       ===================================================================== */
+    function generateMacroText() {
+      // Formato estrito para CorelDRAW: CODIGO;QTD (uma linha por item, sem cabeçalho)
+      return orderedEntries().map(([code, qty]) => `${code};${qty}`).join("\n");
+    }
+
+    async function copyMacroList() {
+      if (state.order.size === 0) {
+        alert("O pedido está vazio. Defina a quantidade de ao menos uma placa antes de copiar.");
+        return;
+      }
+      const text = generateMacroText();
+      let success = false;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try { await navigator.clipboard.writeText(text); success = true; }
+        catch (err) { console.warn("Clipboard API falhou, usando fallback", err); }
+      }
+      if (!success) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { document.execCommand("copy"); success = true; } catch (e) { console.error("Falha no execCommand", e); }
+        document.body.removeChild(textarea);
+      }
+
+      if (success) showToast("Lista copiada! Cole no CorelDRAW e rode a macro.");
+      else alert("Não foi possível copiar automaticamente. Por favor, tente novamente.");
+    }
+
+    function downloadCsv() {
+      if (state.order.size === 0) {
+        alert("O pedido está vazio. Adicione placas antes de baixar o CSV.");
+        return;
+      }
+      const BOM = "﻿";
+      const rows = ["codigo;quantidade;categoria"];
+      orderedEntries().forEach(([code, qty]) => {
+        const item = state.items.get(code);
+        rows.push(`${code};${qty};${item ? item.category : ""}`);
+      });
+      const blob = new Blob([BOM + rows.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      const clientSlug = (state.client || "pedido").replace(/[^\w-]+/g, "_");
+      link.download = `pedido_${clientSlug}_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    /* =====================================================================
+       LIGHTBOX MODAL
+       ===================================================================== */
+    function openModal(code) {
+      const item = state.items.get(code);
+      if (!item) return;
+      state.activeModalCode = code;
+      modalCode.textContent = item.code;
+      modalCat.textContent = item.category;
+      modalImg.src = item.url;
+      modalImg.alt = `Placa ${item.code}`;
+      modalQtyInput.value = state.order.get(code) || 0;
+      imageModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      modalCloseBtn.focus();
+    }
+
+    function closeModal() {
+      imageModal.classList.remove("open");
+      document.body.style.overflow = "";
+      state.activeModalCode = null;
+    }
+
+    /* =====================================================================
+       MOBILE DRAWER
+       ===================================================================== */
+    function openMobileDrawer() {
+      orderPanel.classList.add("drawer-open");
+      orderBackdrop.classList.add("active");
+      btnCloseMobileCart.style.display = "block";
+    }
+
+    function closeMobileDrawer() {
+      orderPanel.classList.remove("drawer-open");
+      orderBackdrop.classList.remove("active");
+    }
+
+    /* =====================================================================
+       UTILITIES & TOAST
+       ===================================================================== */
+    let toastTimeout = null;
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toastBox.classList.add("show");
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toastBox.classList.remove("show"), 3500);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</body></html>
