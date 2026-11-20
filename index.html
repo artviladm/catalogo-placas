@@ -1249,8 +1249,14 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
     .form-section-title { font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent-text); margin: 0.25rem 0 -0.25rem; }
     .form-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.55rem; }
     .form-grid .f { display: flex; flex-direction: column; gap: 0.2rem; grid-column: span 6; }
-    .form-grid .s2 { grid-column: span 2; } .form-grid .s3 { grid-column: span 3; } .form-grid .s4 { grid-column: span 4; }
-    @media (max-width: 520px) { .form-grid .s2, .form-grid .s3, .form-grid .s4 { grid-column: span 3; } }
+    .form-grid .s1 { grid-column: span 1; } .form-grid .s2 { grid-column: span 2; } .form-grid .s3 { grid-column: span 3; } .form-grid .s4 { grid-column: span 4; }
+    .form-grid .f, .f input, .f select, .f textarea { min-width: 0; width: 100%; box-sizing: border-box; }
+    @media (max-width: 640px) {
+      .form-grid .f, .form-grid .s1, .form-grid .s2, .form-grid .s3, .form-grid .s4 { grid-column: 1 / -1; }
+      .form-body { padding: 0.85rem 1rem; }
+      .form-actions { flex-direction: column-reverse; padding: 0.75rem 1rem; }
+      .form-actions > button { width: 100%; flex: 1 1 auto !important; justify-content: center; }
+    }
     .f label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); }
     .f label .req { color: #dc2626; }
     .f input, .f select, .f textarea { padding: 0.5rem 0.6rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; background: #fff; font-family: inherit; }
@@ -1533,7 +1539,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <div class="f s4"><label>Complemento</label><input data-k="complemento" placeholder="Sala, bloco, galpão... (opcional)"></div>
           <div class="f s3"><label>Bairro <span class="req">*</span></label><input data-k="bairro"><span class="err">Obrigatório.</span></div>
           <div class="f s2"><label>Cidade <span class="req">*</span></label><input data-k="cidade"><span class="err">Obrigatório.</span></div>
-          <div class="f s2" style="grid-column: span 1;"><label>UF <span class="req">*</span></label><input data-k="uf" maxlength="2" style="text-transform:uppercase;"><span class="err">UF?</span></div>
+          <div class="f s1"><label>UF <span class="req">*</span></label><input data-k="uf" maxlength="2" style="text-transform:uppercase;"><span class="err">UF?</span></div>
         </div>
 
         <div class="form-section-title">Endereço de entrega</div>
@@ -1545,7 +1551,7 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
           <div class="f s4"><label>Complemento</label><input data-k="complemento" placeholder="Sala, bloco, galpão... (opcional)"></div>
           <div class="f s3"><label>Bairro <span class="req">*</span></label><input data-k="bairro"><span class="err">Obrigatório.</span></div>
           <div class="f s2"><label>Cidade <span class="req">*</span></label><input data-k="cidade"><span class="err">Obrigatório.</span></div>
-          <div class="f s2" style="grid-column: span 1;"><label>UF <span class="req">*</span></label><input data-k="uf" maxlength="2" style="text-transform:uppercase;"><span class="err">UF?</span></div>
+          <div class="f s1"><label>UF <span class="req">*</span></label><input data-k="uf" maxlength="2" style="text-transform:uppercase;"><span class="err">UF?</span></div>
         </div>
 
         <div class="form-section-title">Observações</div>
