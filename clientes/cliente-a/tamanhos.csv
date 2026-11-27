@@ -6,7 +6,8 @@
 PSV-001;15x20;20x30;30x45;personalizado
 #
 # Todas as placas de uma categoria (use o nome da pasta):
-SIMBOLOS DE CONTROLE DE INCÊNDIO;15x15
+SIMBOLOS DE CONTROLE DE INCÊNDIO;15x15;Personalizado
 #
 # So tamanho personalizado:
 PCI-010;personalizado
+PLACA DE SINALIZAÇÃO GERAL;Personalizado
